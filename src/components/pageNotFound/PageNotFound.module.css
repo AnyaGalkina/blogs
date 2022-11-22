@@ -1,0 +1,11 @@
+.img{
+    width: 60%;
+    margin: 2% auto;
+}
+.button {
+    text-align: center;
+    margin: 2%;
+}
+.notFoundContainer{
+    min-height: 100vh;
+}
