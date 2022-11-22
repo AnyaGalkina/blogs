@@ -3,22 +3,24 @@ import {PATH} from '../../common/enums/path';
 
 export const postsAPI = {
     getPosts() {
-        return instance.get(PATH.POSTS);
+        return instance.get<GetItemsResType<PostType>>(PATH.POSTS);
     }
 };
 
-export type GetBlogResType = {
+export type GetItemsResType<T> = {
     pagesCount: number;
     page: number;
     pageSize: number;
     totalCount: number;
-    items: Array<BlogType>;
+    items: Array<T>;
 };
 
-export type BlogType = {
-    id: string;
-    name: string;
-    description: string;
-    websiteUrl: string;
-    createdAt: string;
-};
+export type PostType = {
+	id: string;
+	title: string;
+	shortDescription: string;
+	content: string;
+	blogId: string;
+	blogName: string;
+	createdAt: string;
+}
