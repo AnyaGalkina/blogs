@@ -1,0 +1,23 @@
+.postsBlock {
+    display: flex;
+
+}
+
+.postItemContainer {
+    width: 320px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.postImg {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.postText {
+    padding: 20px;
+    text-align: start;
+}

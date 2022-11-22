@@ -11,7 +11,7 @@ type PropsType = {
     blog: BlogType
 }
 
-export const BlogItem = ({blog}: PropsType) => {
+export const Blog = ({blog}: PropsType) => {
     const navigate =  useNavigate();
 
     const { name, websiteUrl, description, id} = blog;
@@ -23,7 +23,7 @@ export const BlogItem = ({blog}: PropsType) => {
 
     return (
         <div onClick={onBlogClick}>
-            {/*<img src={imgSrc ? imgSrc : defaultImage} alt="blogItem image"/>*/}
+            {/*<img src={imgSrc ? imgSrc : defaultImage} alt="blog image"/>*/}
             <img src={defaultImage} alt="blog image"/>
             <div>
                 <h3>{name}</h3>

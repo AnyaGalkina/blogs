@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {BlogItem} from './blogItem/BlogItem';
+import {Blog} from './blog/Blog';
 import {Title} from '../../components/title/Title';
 import {BlogType} from './blogs-api';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useAppDispatch, useAppSelector} from '../../common/hooks';
 import {getBlogs} from './blogs-reducer';
 import {getBlogsSelector} from '../../common/selectors/selectors';
@@ -20,7 +20,8 @@ export type BlogItemType = {
 
 export const Blogs = () => {
     const dispatch = useAppDispatch();
-    const blogs = useAppSelector(getBlogsSelector);
+    // const blogs = useAppSelector(getBlogsSelector);
+    const blogs = useSelector(getBlogsSelector);
 
 
     useEffect(() => {

@@ -16,7 +16,7 @@ type PropsType = {
 export const Item = ({title, description, websiteUrl, imgSrc, createdAt, styleBlock, styleImg, styleText}: PropsType) => {
     return (
         <div className={styleBlock}>
-            {/*<img src={imgSrc ? imgSrc : defaultImage} alt="blogItem image"/>*/}
+            {/*<img src={imgSrc ? imgSrc : defaultImage} alt="blog image"/>*/}
             <img className={styleImg} src={defaultImage} alt="blog image"/>
 
             <div className={styleText}>
