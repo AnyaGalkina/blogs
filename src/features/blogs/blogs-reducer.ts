@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {blogAPI, BlogType} from './blog-api';
+import {blogsApi, BlogType} from './blogs-api';
 
 const initialState = {
     blogs: [] as Array<BlogType>,
@@ -23,7 +23,7 @@ export const {setBlogs} = slice.actions;
 export const getBlogs = () => async (dispatch: any) => {
 
     try{
-        const response = await blogAPI.getBlogs();
+        const response = await blogsApi.getBlogs();
         dispatch(setBlogs({blogs: response.data.items}));
     } catch (error: any) {
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import {Blogs} from './features/blogs/Blogs';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {PATH} from './common/enums/path';
-import {PageNotFound} from './components/pageNotFound';
-import { Posts } from './features/posts/Posts';
+import {Blogs} from '../features/blogs/Blogs';
+import {Posts} from '../features/posts/Posts';
+import {PageNotFound} from '../components/pageNotFound';
+import {PATH} from '../common/enums/path';
 
 function App() {
     return (

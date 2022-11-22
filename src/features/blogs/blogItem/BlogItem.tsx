@@ -5,13 +5,13 @@ import {PATH} from '../../../common/enums/path';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {getBatch} from 'react-redux/es/utils/batch';
-import {BlogType} from '../blog-api';
+import {BlogType} from '../blogs-api';
 
 type PropsType = {
     blog: BlogType
 }
 
-export const Blog = ({blog}: PropsType) => {
+export const BlogItem = ({blog}: PropsType) => {
     const navigate =  useNavigate();
 
     const { name, websiteUrl, description, id} = blog;
@@ -23,7 +23,7 @@ export const Blog = ({blog}: PropsType) => {
 
     return (
         <div onClick={onBlogClick}>
-            {/*<img src={imgSrc ? imgSrc : defaultImage} alt="blog image"/>*/}
+            {/*<img src={imgSrc ? imgSrc : defaultImage} alt="blogItem image"/>*/}
             <img src={defaultImage} alt="blog image"/>
             <div>
                 <h3>{name}</h3>

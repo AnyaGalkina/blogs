@@ -1,0 +1,14 @@
+.blogItemContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.blogImg {
+    width: 300px;
+    height: 200px;
+}
+
+.blogText {
+    padding: 20px;
+}

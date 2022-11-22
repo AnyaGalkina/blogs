@@ -1,9 +1,9 @@
 import {instance} from '../../common/api/config';
 import {PATH} from '../../common/enums/path';
 
-export const blogsApi = {
-    getBlogs() {
-        return instance.get<GetBlogResType>(PATH.BLOGS);
+export const postsAPI = {
+    getPosts() {
+        return instance.get(PATH.POSTS);
     }
 };
 
