@@ -1,9 +1,13 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import {blogsReducer} from '../features/blogs/blogs-reducer';
+import {postsReducer} from '../features/posts/posts-reducer';
+import {appReducer} from './app-reducer';
 
 const rootReducer = combineReducers({
     blogsPage: blogsReducer,
+    postsPage: postsReducer,
+    app: appReducer,
 });
 
 export const store = configureStore({
