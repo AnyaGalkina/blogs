@@ -1,8 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {blogsApi, BlogType} from './blogs-api';
+import {setAppStatus} from '../../app/app-reducer';
 
 const initialState = {
     blogs: [] as Array<BlogType>,
+    pagesCount: 0,
+    page: 1,
+    pageSize: 15,
+    totalCount: 0
 };
 
 
@@ -21,13 +26,13 @@ export const {setBlogs} = slice.actions;
 
 
 export const getBlogs = () => async (dispatch: any) => {
-
-    try{
+    dispatch(setAppStatus({appStatus: 'loading'}));
+    try {
         const response = await blogsApi.getBlogs();
         dispatch(setBlogs({blogs: response.data.items}));
     } catch (error: any) {
 
     } finally {
-
+        dispatch(setAppStatus({appStatus: 'idle'}));
     }
 };
