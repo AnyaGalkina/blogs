@@ -1,13 +1,16 @@
 import React, {useEffect} from 'react';
-import {Blog} from './blog/Blog';
 import {Title} from '../../components/title/Title';
-import {BlogType} from './blogs-api';
-import {useDispatch, useSelector} from 'react-redux';
-import {useAppDispatch, useAppSelector} from '../../common/hooks';
+import {useSelector} from 'react-redux';
+import {useAppDispatch} from '../../common/hooks';
 import {getBlogs} from './blogs-reducer';
 import {getBlogsSelector} from '../../common/selectors/selectors';
 import style from './Blogs.module.css';
-import {Item} from '../../components/ListItem/Item';
+import {useNavigate} from 'react-router-dom';
+import {PATH} from '../../common/enums/path';
+import {getIsAdmin} from '../admin/admin-selectors';
+import {Button} from 'antd';
+import {DownOutlined} from '@ant-design/icons';
+import {BlogItem} from './blogItem/BlogItem';
 
 export type BlogItemType = {
     id: string
@@ -19,38 +22,60 @@ export type BlogItemType = {
 }
 
 export const Blogs = () => {
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    // const blogs = useAppSelector(getBlogsSelector);
     const blogs = useSelector(getBlogsSelector);
+    const isAdmin = useSelector(getIsAdmin);
 
+    const onAddPostClick = () => {
+        navigate(PATH.ADD_BLOG);
+    }
+
+    // const onShowMoreClick = () => {
+    //
+    // }
 
     useEffect(() => {
         dispatch(getBlogs());
     }, [])
 
+
     return (
         <div>
             <Title title={'Blogs'}/>
-            {/*<div>*/}
-            {/*    <Search />*/}
-            {/*    <Filters />*/}
-            {/*</div>*/}
+
             <div>
-                {blogs.map(({id, createdAt, name, description, websiteUrl}) => {
+                {isAdmin
+                    ?
+                    <div className={style.addBlogBtnBlock}>
+                        <Button className={style.addBlogBtn} onClick={onAddPostClick}>
+                            Add Blog
+                        </Button>
+                     </div>
+                    : <div>
+                        {/*    <Search />*/}
+                        {/*    <Filters />*/}
+                    </div>
+                }
+            </div>
+
+            <div>
+                {blogs.map(({id, name, description, websiteUrl}) => {
                         return (
-                            <Item key={id}
-                                  title={name}
-                                  description={description}
-                                  websiteUrl={websiteUrl}
-                                  styleBlock={style.blogItemContainer}
-                                  styleImg={style.blogImg}
-                                  styleText={style.blogText}
+                            <BlogItem key={id}
+                                      title={name}
+                                      description={description}
+                                      id={id}
+                                      websiteUrl={websiteUrl}
                             />
                         )
                     }
                 )}
             </div>
-            <button>Show more</button>
+
+            <div className={style.showMoreBtn}>
+                <Button>Show more <DownOutlined/></Button>
+            </div>
         </div>
     );
 };

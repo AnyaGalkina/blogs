@@ -1,5 +1,9 @@
 .blogItemContainer {
     display: flex;
+    justify-content: space-between;
+}
+.blogItemBlock {
+    display: flex;
     flex-direction: row;
     justify-content: start;
 }
@@ -11,4 +15,26 @@
 
 .blogText {
     padding: 20px;
+}
+
+.navlink {
+    text-decoration: none;
+    text-underline: none;
+    color: black;
+}
+
+.showMoreBtn{
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+}
+
+.addBlogBtnBlock{
+    display: flex;
+    justify-content: right;
+    margin: 20px;
+}
+.addBlogBtn{
+    background-color: #f9346b;
+    color: white
 }
