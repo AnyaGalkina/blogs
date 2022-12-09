@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, Dispatch, PayloadAction} from '@reduxjs/toolkit';
 import {blogsApi, BlogType} from './blogs-api';
 import {setAppStatus} from '../../app/app-reducer';
 
@@ -36,3 +36,17 @@ export const getBlogs = () => async (dispatch: any) => {
         dispatch(setAppStatus({appStatus: 'idle'}));
     }
 };
+
+
+
+export const getBlogById  = (blogId: string) => async (dispatch: Dispatch) => {
+    dispatch(setAppStatus({appStatus: 'loading'}));
+    try {
+        const response = await blogsApi.getBlogById(blogId);
+        dispatch(setBlogs({blogs: [response.data]}));
+    } catch (error: any) {
+
+    } finally {
+        dispatch(setAppStatus({appStatus: 'idle'}));
+    }
+}
