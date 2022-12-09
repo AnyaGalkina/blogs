@@ -3,7 +3,7 @@ import {Divider} from '@mui/material';
 
 export const Title = ({title}: {title: string}) => {
     return (
-        <div>
+        <div style={{marginBottom: "15px"}}>
             <h2>{title}</h2>
             <Divider />
         </div>

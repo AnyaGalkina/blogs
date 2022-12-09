@@ -1,0 +1,8 @@
+.text {
+    color: gray;
+}
+
+.error {
+    height: 25px;
+    color: darkred;
+}
