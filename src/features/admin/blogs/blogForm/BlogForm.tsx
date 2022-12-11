@@ -2,9 +2,10 @@ import React from 'react';
 import {FormikErrors, useFormik} from 'formik';
 import {Image} from '../../../../components/image/Image';
 import defaultImage from '../../../../assets/images/defaultImage.png';
-import {NewBlogInput} from './newBlogInput/NewBlogInput';
+import {InputWithValidation} from './inputWithValidation/InputWithValidation';
 import style from './BlogForm.module.css';
 import {NewBlogType} from '../../admin-api';
+import {AdminButton} from '../../../../components/adminButton/AdminButton';
 
 const MAX_LENGTH = 500;
 const re = /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
@@ -66,7 +67,7 @@ export const BlogForm = ({onSubmitHandler, buttonTitle}: PropsType) => {
                 <form onSubmit={handleSubmit}>
                     {/*{valueArr.map(({value, text}) => {*/}
                     {/*    return(*/}
-                    {/*       <NewBlogInput text={text} getFieldProps={getFieldProps} placeholder={''}*/}
+                    {/*       <InputWithValidation text={text} getFieldProps={getFieldProps} placeholder={''}*/}
                     {/*                     value={value} touched={touched}*/}
                     {/*                     errors={errors}*/}
                     {/*       />*/}
@@ -74,24 +75,24 @@ export const BlogForm = ({onSubmitHandler, buttonTitle}: PropsType) => {
                     {/*})*/}
 
                     {/*}*/}
-                    <NewBlogInput text={'Blog Name'}
-                                  value={'name'}
-                                  getFieldProps={getFieldProps}
-                                  touched={touched.name}
-                                  errors={errors.name}
+                    <InputWithValidation text={'Blog Name'}
+                                         value={'name'}
+                                         getFieldProps={getFieldProps}
+                                         touched={touched.name}
+                                         errors={errors.name}
                     />
-                    <NewBlogInput text={'Website'}
-                                  value={'websiteUrl'}
-                                  getFieldProps={getFieldProps}
-                                  touched={touched.websiteUrl}
-                                  errors={errors.websiteUrl}
+                    <InputWithValidation text={'Website'}
+                                         value={'websiteUrl'}
+                                         getFieldProps={getFieldProps}
+                                         touched={touched.websiteUrl}
+                                         errors={errors.websiteUrl}
                     />
-                    <NewBlogInput text={'Blog Description'}
-                                  value={'description'}
-                                  getFieldProps={getFieldProps}
-                                  touched={touched.description}
-                                  errors={errors.description}
-                                  rows={4}
+                    <InputWithValidation text={'Blog Description'}
+                                         value={'description'}
+                                         getFieldProps={getFieldProps}
+                                         touched={touched.description}
+                                         errors={errors.description}
+                                         rows={4}
                     />
                     <button className={style.btn} type={'submit'}>{buttonTitle}</button>
                 </form>

@@ -9,6 +9,8 @@ import {getPostsByBlogId} from '../../posts/posts-reducer';
 import {getBlogById} from '../blogs-reducer';
 import {getIsAdmin} from '../../admin/admin-selectors';
 import {Image} from '../../../components/image/Image';
+import {PostItem} from '../../posts/postItem/PostItem';
+import {AdminButton} from '../../../components/adminButton/AdminButton';
 
 // type PropsType = {
 //     'title': 'string',
@@ -36,12 +38,12 @@ import {Image} from '../../../components/image/Image';
 
 
 export const BlogPage = () => {
-    const navigate = useNavigate();
     const {blogId} = useParams();
     const dispatch = useAppDispatch();
     const blog = useAppSelector(state => state.blogsPage.blogs[0]);
     const posts = useAppSelector(state => state.postsPage.posts);
-    const isAdmin = useSelector(getIsAdmin);
+
+
 
     // @ts-ignore
     const {isShowMoreAsked, setIsShowMoreAsked} = useState(false);
@@ -74,29 +76,24 @@ export const BlogPage = () => {
                             </div>
                         }
                     </>
-                    : <div>404</div>
+                    : ""
                 }
             </div>
             <Divider/>
-            <div>
-                Posts list
-            </div>
-            <Image src={defaultImage} alt="blog image"/>
+
             <div>
                 {posts
                     ? posts.map(post => {
-                        return <Item key={post.id}
+                        return <PostItem key={post.id}
                                      title={post.title}
                                      description={post.shortDescription}
-                                     onClick={() => {
-                                     }}
                                      id={post.id}
                                      createdAt={post.createdAt}
                         />
                     })
                     : ''
                 }
-                {isAdmin ? <Button>Add Post</Button> : ''}
+
             </div>
         </div>
     );
