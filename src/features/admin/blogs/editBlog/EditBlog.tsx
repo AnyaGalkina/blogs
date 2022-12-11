@@ -22,6 +22,7 @@ export const EditBlog = () => {
     const  onSubmitHandler = (params: NewBlogType) => {
         if (blogId) {
             dispatch(editBlog({blogId, params}));
+            navigate(PATH.BLOGS);
         }
     }
 

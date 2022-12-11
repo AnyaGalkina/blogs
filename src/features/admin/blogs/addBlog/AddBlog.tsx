@@ -2,7 +2,7 @@ import React from 'react';
 import {useAppDispatch} from '../../../../common/hooks';
 import {useNavigate} from 'react-router-dom';
 import {PATH} from '../../../../common/enums/path';
-import {addBlog, editBlog} from '../../admin-reducer';
+import {addBlog} from '../../admin-reducer';
 import {BlogForm} from '../blogForm/BlogForm';
 import {Title} from '../../../../components/title/Title';
 import {ArrowLeftOutlined} from '@ant-design/icons';
@@ -23,6 +23,7 @@ export const AddBlog = () => {
 
     const onSubmitHandler = (params: NewBlogType) => {
         dispatch(addBlog(params));
+        navigate(PATH.BLOGS);
     }
 
     return (
