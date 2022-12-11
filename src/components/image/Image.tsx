@@ -1,4 +1,5 @@
 import React from 'react';
+import defaultBlogImage from '../../assets/images/defaultImage.png';
 
 type PropsType = {
     alt: string;
@@ -9,6 +10,6 @@ type PropsType = {
 
 export const Image = ({alt, src, defaultImage, styleImage}: PropsType) => {
     return (
-        <img className={styleImage} alt={alt} src={src ? src : defaultImage}/>
+        <img className={styleImage} alt={alt} src={src ? src : defaultImage ? defaultImage : defaultBlogImage}/>
     );
 };

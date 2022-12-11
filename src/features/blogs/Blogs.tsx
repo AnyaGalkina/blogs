@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Title} from '../../components/title/Title';
 import {useSelector} from 'react-redux';
 import {useAppDispatch} from '../../common/hooks';
@@ -11,6 +11,7 @@ import {getIsAdmin} from '../admin/admin-selectors';
 import {Button} from 'antd';
 import {DownOutlined} from '@ant-design/icons';
 import {BlogItem} from './blogItem/BlogItem';
+import {AdminButton} from '../../components/adminButton/AdminButton';
 
 export type BlogItemType = {
     id: string
@@ -27,9 +28,9 @@ export const Blogs = () => {
     const blogs = useSelector(getBlogsSelector);
     const isAdmin = useSelector(getIsAdmin);
 
-    const onAddPostClick = () => {
+    const onAddPostClick = useCallback(() => {
         navigate(PATH.ADD_BLOG);
-    }
+    },[]);
 
     // const onShowMoreClick = () => {
     //
@@ -37,7 +38,11 @@ export const Blogs = () => {
 
     useEffect(() => {
         dispatch(getBlogs());
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        dispatch(getBlogs());
+    }, [blogs]);
 
 
     return (
@@ -48,9 +53,7 @@ export const Blogs = () => {
                 {isAdmin
                     ?
                     <div className={style.addBlogBtnBlock}>
-                        <Button className={style.addBlogBtn} onClick={onAddPostClick}>
-                            Add Blog
-                        </Button>
+                        <AdminButton title={"Add Blog"} onClickHandler={onAddPostClick}/>
                      </div>
                     : <div>
                         {/*    <Search />*/}
