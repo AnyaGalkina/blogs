@@ -1,6 +1,6 @@
 import {AppRootStateType} from '../../app/store';
 import {BlogType} from '../../features/blogs/blogs-api';
-import {PostType} from '../../features/posts/posts-api';
+import {PostByIdResType, PostType} from '../../features/posts/posts-api';
 import {AppStatusType} from '../../app/app-reducer';
 // @ts-ignore
 import {Nullable} from '../types/types';
@@ -8,6 +8,7 @@ import {Nullable} from '../types/types';
 export const getBlogsSelector = (state: AppRootStateType): Array<BlogType>=> state.blogsPage.blogs;
 
 export const getPostsSelector = (state: AppRootStateType): Array<PostType>=> state.postsPage.posts;
+export const getPostByIdSelector = (state: AppRootStateType): Nullable<PostByIdResType> => state.postsPage.post;
 
 
 export const getAppErrorSelector = (state: AppRootStateType): Nullable<string> => state.app.appError;

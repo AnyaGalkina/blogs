@@ -5,6 +5,8 @@ import {useSelector} from 'react-redux';
 import {getIsAdmin} from '../../features/admin/admin-selectors';
 import {EditOutlined, MoreOutlined, DeleteOutlined} from '@ant-design/icons';
 import {Dropdown, MenuProps} from 'antd';
+import {NavLink} from 'react-router-dom';
+import style from './Item.module.css';
 
 type PropsType = {
     title: string;
@@ -20,6 +22,7 @@ type PropsType = {
     onEditClick?: (event: any) => void;
     onDeleteClick?: (event: any) => void;
     styleContainer?: string;
+    path: string;
 }
 
 export const Item = ({
@@ -36,6 +39,7 @@ export const Item = ({
                          onEditClick,
                          onDeleteClick,
                          styleContainer,
+                         path,
                      }: PropsType) => {
     const isAdmin = useSelector(getIsAdmin);
 
@@ -58,7 +62,7 @@ export const Item = ({
             key: '2',
             label: (
                 <span onClick={onEditClick}>
-                    <EditOutlined /> Edit
+                    <EditOutlined/> Edit
                 </span>
             ),
         }
@@ -67,24 +71,25 @@ export const Item = ({
 
     return (
         <div className={styleContainer}>
-            <div className={styleBlock}  onClick={onItemClick}>
-                <Image styleImage={styleImg} defaultImage={defaultImage} alt="blog image"/>
+            <NavLink className={style.link} to={path}>
+                <div className={styleBlock} onClick={onItemClick}>
+                    <Image styleImage={styleImg} alt="blog image"/>
 
-            <div className={styleText}>
-                <h3>{title}</h3>
+                    <div className={styleText}>
+                        <h3>{title}</h3>
 
-                {websiteUrl && <div>
-                    <span>Website: <a href={websiteUrl}>{websiteUrl}</a></span>
-                </div>}
+                        {websiteUrl && <div>
+                            <span>Website: <a href={websiteUrl}>{websiteUrl}</a></span>
+                        </div>}
 
-                <p>{description}</p>
-                <span>{createdAt && createdAt}</span>
-            </div>
-
-            </div>
+                        <p>{description}</p>
+                        <span>{createdAt && createdAt}</span>
+                    </div>
+                </div>
+            </NavLink>
 
             {isAdmin
-                ? <div style={{width: "50px", textAlign: "center"}}>
+                ? <div style={{width: '50px', textAlign: 'center'}}>
                     <Dropdown menu={{items}} placement="bottomRight">
                         <MoreOutlined/>
                     </Dropdown>

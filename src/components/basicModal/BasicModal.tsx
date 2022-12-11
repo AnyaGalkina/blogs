@@ -1,5 +1,5 @@
-import {Button, Divider, Modal} from 'antd';
-import React from 'react';
+import {Divider, Modal} from 'antd';
+import React, {ReactNode} from 'react';
 
 type PropsType = {
     isModalOpen: boolean;
@@ -7,10 +7,11 @@ type PropsType = {
     handleCancel: () => void;
     modalTitle: string;
     modalContent?: string;
+    children?: ReactNode;
 }
 
 
-export const BasicModal = ({handleCancel, modalContent, modalTitle, isModalOpen, handleOk}: PropsType) => {
+export const BasicModal = ({handleCancel, modalContent, modalTitle, isModalOpen, handleOk, children}: PropsType) => {
     return (
         <>
             <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
@@ -18,6 +19,7 @@ export const BasicModal = ({handleCancel, modalContent, modalTitle, isModalOpen,
                 <h3>{modalTitle}</h3>
                 <Divider/>
                 <p>{modalContent}</p>
+                {children}
             </div>
             </Modal>
         </>

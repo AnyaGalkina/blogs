@@ -15,6 +15,7 @@ import {GroupOutlined, UnorderedListOutlined} from '@ant-design/icons';
 import {BlogPage} from '../features/blogs/blogPage/BlogPage';
 import {AddBlog} from '../features/admin/blogs/addBlog/AddBlog';
 import {EditBlog} from '../features/admin/blogs/editBlog/EditBlog';
+import {Post} from '../features/posts/post/Post';
 
 const routes = [
     {path: PATH.BLOGS, component: <Blogs/>},
@@ -22,7 +23,7 @@ const routes = [
     {path: PATH.ADD_BLOG, component: <AddBlog/>},
     {path: `${PATH.EDIT_BLOG}/:blogId`, component: <EditBlog/>},
     {path: PATH.POSTS, component: <Posts/>},
-    // {path: PATH.POST, component: <Post />},
+    {path: `${PATH.POSTS}/:postId`, component: <Post />},
     // {path: PATH.EDIT_POST, component: },
     // {path: PATH.ADD_POST, component: },
     {path: PATH.PAGE_NOT_FOUND, component: <PageNotFound/>},

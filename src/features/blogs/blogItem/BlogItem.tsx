@@ -24,7 +24,7 @@ export const BlogItem = ({title, description, websiteUrl, id}: PropsType) => {
 
     const onDeleteClickHandler = (event: any) => {
         setIsModalOpen(true);
-        event.stopPropagation();
+        // event.stopPropagation();
     }
 
     const onOkClickHandler = () => {
@@ -38,15 +38,11 @@ export const BlogItem = ({title, description, websiteUrl, id}: PropsType) => {
 
     const onEditClickHandler = (event: any) => {
         navigate(`${PATH.EDIT_BLOG}/${id}`);
-        event.stopPropagation();
+        // event.stopPropagation();
     }
 
     return (
         <>
-            <NavLink
-                className={style.navlink}
-                to={`${PATH.BLOGS}/${id}${PATH.POSTS}`}
-            >
                 <Item
                     title={title}
                     description={description}
@@ -58,8 +54,8 @@ export const BlogItem = ({title, description, websiteUrl, id}: PropsType) => {
                     id={id}
                     onEditClick={onEditClickHandler}
                     onDeleteClick={onDeleteClickHandler}
+                    path={`${PATH.BLOGS}/${id}${PATH.POSTS}`}
                 />
-            </NavLink>
             <Divider/>
             <BasicModal isModalOpen={isModalOpen}
                         handleOk={onOkClickHandler}
