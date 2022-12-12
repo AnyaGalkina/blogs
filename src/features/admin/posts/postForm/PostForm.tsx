@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image} from '../../../../components/image/Image';
 import defaultImage from '../../../../assets/images/defaultImage.png';
 import {FormikErrors, useFormik} from 'formik';
-import {Dropdown, Typography, Space} from 'antd';
 import {InputWithValidation} from '../../blogs/blogForm/inputWithValidation/InputWithValidation';
-import {DownOutlined} from '@ant-design/icons';
 import style from './PostForm.module.css';
+import {useAppDispatch} from '../../../../common/hooks';
+import {getBlogs} from '../../../blogs/blogs-reducer';
+import {useSelector} from 'react-redux';
+import {getBlogsSelector} from '../../../../common/selectors/selectors';
 
 export type ValuesType = {
     title: string;
-    // blogName?: string;
+    blogId?: string;
     content: string;
 }
 
@@ -24,16 +26,18 @@ type PropsType = {
 }
 
 export const PostForm = ({buttonTitle, onSubmitHandler, isNewPost}: PropsType) => {
+    const dispatch = useAppDispatch();
+    const blogs = useSelector(getBlogsSelector);
+
     const formik = useFormik({
         initialValues: {
             title: '',
-            // blogName: 'test',
+            blogId: '',
             content: '',
         },
         validate: (values) => {
             const errors: FormikErrors<ValuesType> = {};
-            // const {title, content, blogName} = values;
-            const {title, content, } = values;
+            const {title, content, blogId} = values;
 
             if (!title) {
                 errors.title = 'The field is required'
@@ -41,9 +45,9 @@ export const PostForm = ({buttonTitle, onSubmitHandler, isNewPost}: PropsType) =
                 errors.title = `Max length is ${MAX_TITLE_LENGTH} symbols`
             }
 
-            // if (!blogName) {
-            //     errors.blogName = 'The field is required'
-            // }
+            if (isNewPost && !blogId) {
+                errors.blogId = 'The field is required'
+            }
 
             if (!content) {
                 errors.content = 'The field is required'
@@ -53,14 +57,17 @@ export const PostForm = ({buttonTitle, onSubmitHandler, isNewPost}: PropsType) =
             return errors
         },
         onSubmit: (values) => {
-            console.log(values)
-            debugger
             onSubmitHandler(values);
             formik.resetForm();
         }
     })
 
-    const {touched, errors, getFieldProps, handleSubmit} = formik;
+
+    useEffect(() => {
+        dispatch(getBlogs());
+    }, [])
+
+    const {touched, errors, getFieldProps, handleSubmit, handleChange, values} = formik;
     return (
         <div>
             <Image alt={'post image'} defaultImage={defaultImage} styleImage={style.formImage}/>
@@ -74,26 +81,30 @@ export const PostForm = ({buttonTitle, onSubmitHandler, isNewPost}: PropsType) =
 
                 {isNewPost ?
                     <>
-                        <h3>Blog</h3>
-                        <Dropdown>
-                            <Typography.Link>
-                                <Space>
-                                    Choose a blog
-                                    <DownOutlined/>
-                                </Space>
-                            </Typography.Link>
-                        </Dropdown>
-
+                        <span className={style.text}>Blog</span>
+                        <div>
+                            <select value={values.blogId}
+                                    onChange={handleChange}
+                                    name="blogId"
+                                    className={style.select}
+                            >
+                                {blogs.map((option) => {
+                                    return <option value={option.id}>{option.name}</option>
+                                })}
+                            </select>
+                            <div className={style.error}>{touched.blogId && errors.blogId}</div>
+                        </div>
                     </>
                     : ''
                 }
                 <InputWithValidation
-                    touched={touched.content} errors={errors.content} text={'Description'} getFieldProps={getFieldProps}
+                    touched={touched.content} errors={errors.content} text={'Description'}
+                    getFieldProps={getFieldProps}
                     value={'content'}
                     rows={6}
                     panel={true}
                 />
-                <button style={{backgroundColor: '#f9346b', color: 'white'}} type="submit">{buttonTitle}</button>
+                <button className={style.submitButton} type="submit">{buttonTitle}</button>
             </form>
         </div>
     );
