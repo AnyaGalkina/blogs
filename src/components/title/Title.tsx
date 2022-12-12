@@ -1,14 +1,14 @@
 import React from 'react';
 import {Divider} from '@mui/material';
 import {Breadcrumb} from 'antd';
-import {CaretRightOutlined} from '@ant-design/icons';
+import {BreadcrumbItem} from './breadcrumb/BreadcrumbItem';
 
 type PropsType = {
     title: string;
     breadcrumbs?: BreadcrumbsType[]
 }
 
-type BreadcrumbsType = {
+export type BreadcrumbsType = {
     breadcrumbLink?: string;
     breadcrumbItem: string;
 }
@@ -21,20 +21,7 @@ export const Title = ({title, breadcrumbs}: PropsType) => {
 
                 <Breadcrumb style={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
                     {breadcrumbs ? breadcrumbs.map((breadcrumb, index) => {
-                            return (
-                                <>
-                                    <div style={{width:'14px', height: '14px', marginLeft:'10px',marginRight:'10px'}}>
-                                        <CaretRightOutlined />
-                                    </div>
-                                    <Breadcrumb.Item key={index}>
-                                        {breadcrumb.breadcrumbLink
-                                            ? <a href={breadcrumb.breadcrumbLink}>{breadcrumb.breadcrumbItem}</a>
-                                            : <span>{breadcrumb.breadcrumbItem}</span>
-                                        }
-                                    </Breadcrumb.Item>
-
-                                </>
-                            )
+                            return <BreadcrumbItem key={index} breadcrumb={breadcrumb}/>
                         })
                         : ''
                     }

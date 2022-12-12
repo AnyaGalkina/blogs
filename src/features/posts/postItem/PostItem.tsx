@@ -38,12 +38,16 @@ export const PostItem = ({blogId, title, id, createdAt, description}: PropsType)
         setIsModalOpen(false);
     }
 
-    const onEditClickHandler = (event: any) => {
+    const onEditClickHandler = () => {
         setIsAddPostModalOpen(true);
     }
 
     const onPublishClickHandler = (params: PostReqType) => {
         dispatch(editPost({postId:id, params}));
+        setIsAddPostModalOpen(false);
+    }
+
+    const onCancelEditClickHandler = () => {
         setIsAddPostModalOpen(false);
     }
 
@@ -69,7 +73,7 @@ export const PostItem = ({blogId, title, id, createdAt, description}: PropsType)
                         modalTitle={'Delete a post'}
                         modalContent={'Are you sure you want to delete this post?'}
             />
-            <BasicModal isModalOpen={isAddPostModalOpen} modalTitle={"Edit Post"} modalContent={""}>
+            <BasicModal isModalOpen={isAddPostModalOpen} modalTitle={"Edit Post"} modalContent={""} handleCancel={onCancelEditClickHandler}>
                 <EditPost blogId={blogId} onPublishClickHandler={onPublishClickHandler}/>
             </BasicModal>
         </div>

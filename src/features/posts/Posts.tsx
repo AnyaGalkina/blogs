@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Title} from '../../components/title/Title';
-import {Item} from '../../components/listItem/Item';
 import {useAppDispatch} from '../../common/hooks';
 import {getPosts} from './posts-reducer';
 import {useSelector} from 'react-redux';
@@ -13,24 +12,10 @@ import {DownOutlined} from '@ant-design/icons';
 import {PostItem} from './postItem/PostItem';
 import {AdminButton} from '../../components/adminButton/AdminButton';
 import {BasicModal} from '../../components/basicModal/BasicModal';
-import {useNavigate} from 'react-router-dom';
-import {PATH} from '../../common/enums/path';
 import {AddPost} from '../admin/posts/addPost/AddPost';
-import {EditPost} from '../admin/posts/editPost/EditPost';
 import {formattedDate} from '../../common/utils/dateConvertor';
 import {PostReqType} from '../admin/admin-api';
 import {addPost} from '../admin/admin-reducer';
-
-
-// export type PostItemType = {
-//     id: string;
-//     title: string;
-//     shortDescription: string;
-//     content: string;
-//     blogId: string;
-//     blogName: string;
-//     createdAt: string;
-// }
 
 
 export const Posts = () => {
@@ -46,10 +31,13 @@ export const Posts = () => {
 
 
     const onPublishClickHandler =  useCallback((newPost: PostReqType) => {
-        debugger
         dispatch(addPost(newPost));
         setIsModalOpen(false);
     }, [])
+
+    const onCancelClickHandler = () => {
+        setIsModalOpen(false);
+    }
 
     useEffect(() => {
         dispatch(getPosts());
@@ -76,7 +64,7 @@ export const Posts = () => {
                     <Button>Show more <DownOutlined/></Button>
                 </div>
             </div>
-            <BasicModal isModalOpen={isModalOpen} modalTitle={"Add Post"} modalContent={""}>
+            <BasicModal isModalOpen={isModalOpen} modalTitle={"Add Post"} modalContent={""} handleCancel={onCancelClickHandler}>
                 <AddPost onPublishClickHandler={onPublishClickHandler}/>
             </BasicModal>
 
