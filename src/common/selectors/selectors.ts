@@ -5,7 +5,8 @@ import {AppStatusType} from '../../app/app-reducer';
 // @ts-ignore
 import {Nullable} from '../types/types';
 
-export const getBlogsSelector = (state: AppRootStateType): Array<BlogType>=> state.blogsPage.blogs;
+export const getBlogsSelector = (state: AppRootStateType): Array<BlogType> => state.blogsPage.blogs;
+export const getBlogByIdSelector = (state: AppRootStateType): BlogType => state.blogsPage.blogs[0];
 
 export const getPostsSelector = (state: AppRootStateType): Array<PostType>=> state.postsPage.posts;
 export const getPostByIdSelector = (state: AppRootStateType): Nullable<PostByIdResType> => state.postsPage.post;

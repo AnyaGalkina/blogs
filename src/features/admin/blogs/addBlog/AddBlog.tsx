@@ -28,7 +28,7 @@ export const AddBlog = () => {
 
     return (
         <div>
-            <Title title={'Blogs'}/>
+            <Title title={'Blogs'} breadcrumbs={[{breadcrumbItem: "Add"}]}/>
             <div>
                 <span onClick={onBackToBlogsClick}><ArrowLeftOutlined/> Back to blogs</span>
             </div>
