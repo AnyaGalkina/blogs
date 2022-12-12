@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {NavLink, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import style from '../Blogs.module.css';
 import {PATH} from '../../../common/enums/path';
 import {Item} from '../../../components/listItem/Item';
@@ -22,9 +22,8 @@ export const BlogItem = ({title, description, websiteUrl, id}: PropsType) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const onDeleteClickHandler = (event: any) => {
+    const onDeleteClickHandler = () => {
         setIsModalOpen(true);
-        // event.stopPropagation();
     }
 
     const onOkClickHandler = () => {
@@ -36,32 +35,33 @@ export const BlogItem = ({title, description, websiteUrl, id}: PropsType) => {
         setIsModalOpen(false);
     }
 
-    const onEditClickHandler = (event: any) => {
+    const onEditClickHandler = () => {
         navigate(`${PATH.EDIT_BLOG}/${id}`);
-        // event.stopPropagation();
     }
 
     return (
         <>
-                <Item
-                    title={title}
-                    description={description}
-                    websiteUrl={websiteUrl}
-                    styleContainer={style.blogItemContainer}
-                    styleBlock={style.blogItemBlock}
-                    styleImg={style.blogImg}
-                    styleText={style.blogText}
-                    id={id}
-                    onEditClick={onEditClickHandler}
-                    onDeleteClick={onDeleteClickHandler}
-                    path={`${PATH.BLOGS}/${id}${PATH.POSTS}`}
-                />
+            <Item
+                title={title}
+                description={description}
+                websiteUrl={websiteUrl}
+                styleContainer={style.blogItemContainer}
+                styleBlock={style.blogItemBlock}
+                styleImg={style.blogImg}
+                styleText={style.blogText}
+                id={id}
+                onEditClick={onEditClickHandler}
+                onDeleteClick={onDeleteClickHandler}
+                path={`${PATH.BLOGS}/${id}${PATH.POSTS}`}
+            />
             <Divider/>
             <BasicModal isModalOpen={isModalOpen}
                         handleOk={onOkClickHandler}
                         handleCancel={onCancelClickHandler}
                         modalTitle={'Delete a blog'}
                         modalContent={'Are you sure you want to delete this blog?'}
+                        okButtonTitle={'Ok'}
+                        cancelButtonTitle={'Cancel'}
             />
         </>
     );

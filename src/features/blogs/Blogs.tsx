@@ -40,11 +40,6 @@ export const Blogs = () => {
         dispatch(getBlogs());
     }, []);
 
-    useEffect(() => {
-        dispatch(getBlogs());
-    }, [blogs]);
-
-
     return (
         <div>
             <Title title={'Blogs'}/>
