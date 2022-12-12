@@ -1,9 +1,8 @@
 import React from 'react';
-import defaultImage from '../../assets/images/defaultImage.png';
 import {Image} from '../image/Image';
 import {useSelector} from 'react-redux';
 import {getIsAdmin} from '../../features/admin/admin-selectors';
-import {EditOutlined, MoreOutlined, DeleteOutlined} from '@ant-design/icons';
+import {DeleteOutlined, EditOutlined, MoreOutlined} from '@ant-design/icons';
 import {Dropdown, MenuProps} from 'antd';
 import {NavLink} from 'react-router-dom';
 import style from './Item.module.css';
