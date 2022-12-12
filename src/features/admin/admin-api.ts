@@ -14,6 +14,7 @@ export const adminAPI = {
         return instance.delete<AxiosResponse>(`/blogs/${blogId}`);
     },
     addNewPost(params: PostReqType) {
+        debugger
         return instance.post<PostReqType, AxiosResponse<PostByIdResType>>('/posts',params );
     },
     updatePost(blogId: string, params: PostReqType) {

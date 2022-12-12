@@ -41,10 +41,7 @@ export const EditBlog = () => {
         blogId ?
             <div>
                 <Title title={'Blogs'}
-                       breadcrumbs={[{
-                           // breadcrumbLink: `${PATH.BLOGS}/${blogId}${PATH.POSTS}`,
-                           breadcrumbItem: blog.name
-                       }, {breadcrumbItem: 'Edit'}]}
+                       breadcrumbs={[{breadcrumbItem: blog.name}, {breadcrumbItem: 'Edit'}]}
                 />
                 <div>
                     <span onClick={onBackToBlogsClick}><ArrowLeftOutlined/> Back to blogs</span>

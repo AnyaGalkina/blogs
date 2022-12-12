@@ -15,6 +15,11 @@ import {AdminButton} from '../../components/adminButton/AdminButton';
 import {BasicModal} from '../../components/basicModal/BasicModal';
 import {useNavigate} from 'react-router-dom';
 import {PATH} from '../../common/enums/path';
+import {AddPost} from '../admin/posts/addPost/AddPost';
+import {EditPost} from '../admin/posts/editPost/EditPost';
+import {formattedDate} from '../../common/utils/dateConvertor';
+import {PostReqType} from '../admin/admin-api';
+import {addPost} from '../admin/admin-reducer';
 
 
 // export type PostItemType = {
@@ -30,15 +35,21 @@ import {PATH} from '../../common/enums/path';
 
 export const Posts = () => {
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const [] = useState(false);
     const posts = useSelector(getPostsSelector);
     const isAdmin = useSelector(getIsAdmin);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
 
     const onAddPostClick = useCallback(() => {
-        navigate(PATH.ADD_POST);
+        setIsModalOpen(true);
     }, [])
 
+
+    const onPublishClickHandler =  useCallback((newPost: PostReqType) => {
+        debugger
+        dispatch(addPost(newPost));
+        setIsModalOpen(false);
+    }, [])
 
     useEffect(() => {
         dispatch(getPosts());
@@ -57,7 +68,7 @@ export const Posts = () => {
                 <div className={style.postsBlock}>
                     {posts.map(({id, blogId, shortDescription, title, content, createdAt, blogName}: PostType) => {
                         return (
-                            <PostItem key={id} id={id} title={title} description={blogName} createdAt={createdAt}/>
+                            <PostItem key={id} id={id} title={title} description={blogName} createdAt={formattedDate(createdAt)} blogId={blogId}/>
                         )
                     })}
                 </div>
@@ -65,7 +76,10 @@ export const Posts = () => {
                     <Button>Show more <DownOutlined/></Button>
                 </div>
             </div>
-            {/*<BasicModal isModalOpen={} modalTitle={} modalContent={} />*/}
+            <BasicModal isModalOpen={isModalOpen} modalTitle={"Add Post"} modalContent={""}>
+                <AddPost onPublishClickHandler={onPublishClickHandler}/>
+            </BasicModal>
+
         </>
 
     );

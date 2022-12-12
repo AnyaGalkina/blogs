@@ -1,0 +1,14 @@
+.cancelButton {
+    background-color: #fff;
+    color: #f9346b;
+    border-color: #f9346b;
+}
+
+.buttonsBlock {
+    display: flex;
+    justify-content: space-around;
+}
+.buttonBlock {
+    display: flex;
+    justify-content: end;
+}

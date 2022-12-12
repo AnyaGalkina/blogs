@@ -63,9 +63,10 @@ export const editBlog = createAsyncThunk('admin/editBlog', async ({blogId, param
 export const addPost = createAsyncThunk("admin/addPost", async (params: PostReqType, thunkAPI)  => {
     const {dispatch} = thunkAPI;
     dispatch(setAppStatus({appStatus: 'loading'}));
-    try{
-        const response = await adminAPI.addNewPost(params);
 
+    try{
+        debugger
+        const response = await adminAPI.addNewPost(params);
     }catch (error: any) {
 
     }finally {
