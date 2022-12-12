@@ -60,7 +60,7 @@ export const PostForm = ({buttonTitle, onSubmitHandler, isNewPost}: PropsType) =
         }
     })
 
-    const {touched, errors, getFieldProps, handleSubmit, values} = formik;
+    const {touched, errors, getFieldProps, handleSubmit} = formik;
     return (
         <div>
             <Image alt={'post image'} defaultImage={defaultImage} styleImage={style.formImage}/>
@@ -68,7 +68,7 @@ export const PostForm = ({buttonTitle, onSubmitHandler, isNewPost}: PropsType) =
             <form onSubmit={handleSubmit}>
 
                 <InputWithValidation
-                    touched={touched.title} errors={errors.title} text={'PostPage Name'} getFieldProps={getFieldProps}
+                    touched={touched.title} errors={errors.title} text={'Post Name'} getFieldProps={getFieldProps}
                     value={'title'}
                 />
 

@@ -12,7 +12,7 @@ export const blogsApi = {
         return instance.get<BlogType>(`${PATH.BLOGS}/${blogId}`);
     },
     getPostsByBlogId(blogId: string) {
-        return instance.get<string,AxiosResponse<GetItemsResType<PostType>>>(`${PATH.BLOGS}/${blogId}/posts`);
+        return instance.get<string,AxiosResponse<GetItemsResType<PostType>>>(`${PATH.BLOGS}/${blogId}${PATH.POSTS}`);
     }
 };
 
