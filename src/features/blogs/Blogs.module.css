@@ -2,6 +2,12 @@
     display: flex;
     justify-content: space-between;
 }
+
+.filtersBlock{
+    display: flex;
+    justify-content: space-between;
+}
+
 .blogItemBlock {
     display: flex;
     flex-direction: row;

@@ -15,6 +15,7 @@ const initialState = {
     totalCount: 0,
     sortBy: null as Nullable<SortByType>,
     sortDirection: null as Nullable<BlogsSortDirectionType>,
+    searchNameTerm: ''
 };
 
 
@@ -26,15 +27,17 @@ const slice = createSlice({
             state.blogs = action.payload.blogs;
         },
         setFilter(state, action: PayloadAction<{ sortDirection: BlogsSortDirectionType, sortBy: SortByType }>) {
-            debugger
             state.sortDirection = action.payload.sortDirection
             state.sortBy = action.payload.sortBy
+        },
+        setSearchNameTerm(state, action: PayloadAction<{ searchNameTerm: string }>) {
+            state.searchNameTerm = action.payload.searchNameTerm
         },
     },
 });
 
 export const blogsReducer = slice.reducer;
-export const {setBlogs, setFilter} = slice.actions;
+export const {setBlogs, setFilter, setSearchNameTerm} = slice.actions;
 
 
 export type GetBlogsParamsType = {
@@ -42,6 +45,7 @@ export type GetBlogsParamsType = {
     pageSize?: number;
     pageNumber?: number;
     sortBy?: string;
+    searchNameTerm?: string;
 }
 
 
@@ -50,7 +54,7 @@ export const getBlogs = createAsyncThunk('blogs/getBlogs', async (_: void, thunk
     dispatch(setAppStatus({appStatus: 'loading'}));
     debugger
     const state = getState() as AppRootStateType;
-    const {sortDirection, pageSize, page, sortBy} = state.blogsPage;
+    const {sortDirection, pageSize, page, sortBy, searchNameTerm} = state.blogsPage;
 
     let params: GetBlogsParamsType = {};
 
@@ -66,6 +70,9 @@ export const getBlogs = createAsyncThunk('blogs/getBlogs', async (_: void, thunk
         params.pageSize = page;
     }
 
+    if(searchNameTerm) {
+        params.searchNameTerm = searchNameTerm
+    }
 
     try {
         const response = await blogsApi.getBlogs(params);

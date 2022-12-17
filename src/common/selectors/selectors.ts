@@ -11,6 +11,7 @@ export const getBlogsSelector = (state: AppRootStateType): Array<BlogType> => st
 export const getBlogByIdSelector = (state: AppRootStateType): BlogType => state.blogsPage.blogs[0];
 export const getBlogsSortedBySelector = (state: AppRootStateType): Nullable<SortByType> => state.blogsPage.sortBy;
 export const getBlogsSortDirectionSelector = (state: AppRootStateType): Nullable<BlogsSortDirectionType> => state.blogsPage.sortDirection;
+export const getSearchNameTermSelector = (state: AppRootStateType): string => state.blogsPage.searchNameTerm;
 
 
 export const getPostsSelector = (state: AppRootStateType): Array<PostType>=> state.postsPage.posts;

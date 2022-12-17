@@ -5,7 +5,7 @@ import {useAppDispatch} from '../../common/hooks';
 import {getBlogs, setFilter} from './blogs-reducer';
 import {
     getBlogsSelector, getBlogsSortDirectionSelector,
-    getBlogsSortedBySelector,
+    getBlogsSortedBySelector, getSearchNameTermSelector,
 } from '../../common/selectors/selectors';
 import style from './Blogs.module.css';
 import {useNavigate} from 'react-router-dom';
@@ -16,6 +16,9 @@ import {DownOutlined} from '@ant-design/icons';
 import {BlogItem} from './blogItem/BlogItem';
 import {AdminButton} from '../../components/adminButton/AdminButton';
 import {Filter} from '../filters/filter/Filter';
+import {Search} from '../filters/search/Search';
+
+
 
 export type BlogItemType = {
     id: string
@@ -32,6 +35,7 @@ export const Blogs = () => {
     const blogs = useSelector(getBlogsSelector);
     const sortBy = useSelector(getBlogsSortedBySelector);
     const sortDirection  = useSelector(getBlogsSortDirectionSelector);
+    const searchNameTerm  = useSelector(getSearchNameTermSelector);
     const isAdmin = useSelector(getIsAdmin);
 
     const onAddPostClick = useCallback(() => {
@@ -43,10 +47,8 @@ export const Blogs = () => {
     // }
 
     useEffect(() => {
-        debugger
-        // console.log("sortDirection", sortDirection, "sortBy", sortBy)
         dispatch(getBlogs());
-    }, [sortBy, sortDirection]);
+    }, [sortBy, sortDirection, searchNameTerm]);
 
     return (
         <div>
@@ -58,8 +60,8 @@ export const Blogs = () => {
                     <div className={style.addBlogBtnBlock}>
                         <AdminButton title={"Add Blog"} onClickHandler={onAddPostClick}/>
                      </div>
-                    : <div>
-                        {/*    <Search />*/}
+                    : <div className={style.filtersBlock}>
+                            <Search />
                             <Filter isBlog={true} setFilter={setFilter}/>
                     </div>
                 }
