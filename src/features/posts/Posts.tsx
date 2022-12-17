@@ -1,9 +1,13 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Title} from '../../components/title/Title';
 import {useAppDispatch} from '../../common/hooks';
-import {getPosts} from './posts-reducer';
+import {getPosts, setPostsFilter} from './posts-reducer';
 import {useSelector} from 'react-redux';
-import {getPostsSelector} from '../../common/selectors/selectors';
+import {
+    getPostsSelector,
+    getPostsSortDirectionSelector,
+    getPostsSortedBySelector
+} from '../../common/selectors/selectors';
 import {PostType} from './posts-api';
 import style from './Posts.module.css';
 import {getIsAdmin} from '../admin/admin-selectors';
@@ -16,12 +20,17 @@ import {AddPost} from '../admin/posts/addPost/AddPost';
 import {formattedDate} from '../../common/utils/dateConvertor';
 import {PostReqType} from '../admin/admin-api';
 import {addPost} from '../admin/admin-reducer';
+import {Filter} from '../filters/filter/Filter';
+import {setFilter} from '../blogs/blogs-reducer';
 
 
 export const Posts = () => {
     const dispatch = useAppDispatch();
     const posts = useSelector(getPostsSelector);
     const isAdmin = useSelector(getIsAdmin);
+    const sortBy = useSelector(getPostsSortedBySelector);
+    const sortDirection = useSelector(getPostsSortDirectionSelector);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
 
@@ -40,8 +49,9 @@ export const Posts = () => {
     }
 
     useEffect(() => {
+        debugger
         dispatch(getPosts());
-    }, [dispatch])
+    }, [dispatch, sortBy, sortDirection])
 
 
     return (
@@ -49,8 +59,11 @@ export const Posts = () => {
             <div>
                 <Title title={'Posts'}/>
                 <div>
-                    {isAdmin ? <AdminButton title={"Add Post"} onClickHandler={onAddPostClick}/>: ''
-                        // <Filters />
+                    {isAdmin ? <AdminButton title={"Add Post"} onClickHandler={onAddPostClick}/>
+                        :  <Filter
+                            //@ts-ignore
+                            setFilter={setPostsFilter}
+                        />
                     }
                 </div>
                 <div className={style.postsBlock}>

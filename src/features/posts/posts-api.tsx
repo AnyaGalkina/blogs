@@ -1,9 +1,10 @@
 import {instance} from '../../common/api/config';
 import {PATH} from '../../common/enums/path';
+import {GetPostsParamsType} from './posts-reducer';
 
 export const postsAPI = {
-    getPosts() {
-        return instance.get<GetItemsResType<PostType>>(PATH.POSTS);
+    getPosts(params: GetPostsParamsType) {
+        return instance.get<GetItemsResType<PostType>>(PATH.POSTS, {params});
     },
     getPostById(postId: string) {
         return instance.get<PostByIdResType>(`${PATH.POSTS}/${postId}`);

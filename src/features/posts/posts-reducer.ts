@@ -2,8 +2,11 @@ import {createAsyncThunk, createSlice, Dispatch, PayloadAction} from '@reduxjs/t
 import {PostByIdResType, postsAPI, PostType} from './posts-api';
 import {setAppStatus} from '../../app/app-reducer';
 import {blogsApi} from '../blogs/blogs-api';
-import {setBlogs} from '../blogs/blogs-reducer';
 import {Nullable} from '../../common/types/types';
+import {AppRootStateType} from '../../app/store';
+
+export type PostsSortDirectionType = 'desc' | 'asc';
+export type SortByType = 'name' | 'createdAt';
 
 const initialState = {
     posts: [] as Array<PostType>,
@@ -11,7 +14,9 @@ const initialState = {
     pagesCount: 0,
     page: 1,
     pageSize: 15,
-    totalCount: 0
+    totalCount: 0,
+    sortBy: null as Nullable<SortByType>,
+    sortDirection: null as Nullable<PostsSortDirectionType>,
 };
 
 
@@ -22,43 +27,72 @@ const slice = createSlice({
         setPosts(state, action: PayloadAction<{ posts: Array<PostType> }>) {
             state.posts = action.payload.posts
         },
-        setPost(state, action: PayloadAction<{ post: PostByIdResType}>) {
+        setPost(state, action: PayloadAction<{ post: PostByIdResType }>) {
             state.post = action.payload.post
-        }
+        },
+        setPostsFilter(state, action: PayloadAction<{ sortDirection: PostsSortDirectionType, sortBy: SortByType }>) {
+            debugger
+            state.sortDirection = action.payload.sortDirection
+            state.sortBy = action.payload.sortBy
+        },
+
     }
 });
 
 export const postsReducer = slice.reducer;
-export const {setPosts, setPost} = slice.actions;
+export const {setPosts, setPost, setPostsFilter} = slice.actions;
 
-export const getPosts = () => async (dispatch: any) => {
+export const getPosts =  createAsyncThunk('posts/getPosts', async (_: void, thunkAPI) => {
+    let {dispatch, getState} = thunkAPI;
+    // getState: () => AppRootStateType;
     dispatch(setAppStatus({appStatus: 'loading'}));
-    try{
-       const response = await postsAPI.getPosts();
-       dispatch(setPosts({posts: response.data.items}));
-    } catch (error: any) {
+    const state = getState() as AppRootStateType
+    const {sortDirection, pageSize, page, sortBy} = state.postsPage;
 
-    } finally {
-        dispatch(setAppStatus({appStatus: 'idle'}));
+    let params: GetPostsParamsType = {};
+
+    if(sortBy && sortDirection){
+        params.sortBy = sortBy;
+        params.sortDirection = sortDirection;
     }
-}
 
+    if (page > 1) {
+        params.pageNumber = page;
+    }
+    if (pageSize !== 15) {
+        params.pageSize = page;
+    }
 
-
-export const getPostsByBlogId = (blogId: string) => async (dispatch: Dispatch) => {
     dispatch(setAppStatus({appStatus: 'loading'}));
     try {
-
-        const response = await blogsApi.getPostsByBlogId(blogId);
+        const response = await postsAPI.getPosts(params);
         dispatch(setPosts({posts: response.data.items}));
-
-
     } catch (error: any) {
 
     } finally {
         dispatch(setAppStatus({appStatus: 'idle'}));
     }
+});
+
+export type GetPostsParamsType = {
+    sortDirection?: PostsSortDirectionType;
+    pageSize?: number;
+    pageNumber?: number;
+    sortBy?: string;
 }
+
+export const getPostsByBlogId = createAsyncThunk('/', async (blogId: string, thunkAPI) => {
+    const {dispatch} = thunkAPI;
+
+    try {
+        const response = await blogsApi.getPostsByBlogId(blogId);
+        dispatch(setPosts({posts: response.data.items}));
+    } catch (error: any) {
+
+    } finally {
+        dispatch(setAppStatus({appStatus: 'idle'}));
+    }
+});
 
 
 export const getPostById = createAsyncThunk('posts/postById', async (postId: string, thunkAPI) => {
