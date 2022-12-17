@@ -5,7 +5,7 @@ import {useAppDispatch} from '../../common/hooks';
 import {getBlogs, setBlogsPageSize, setFilter} from './blogs-reducer';
 import {
     getBlogsSelector, getBlogsSortDirectionSelector,
-    getBlogsSortedBySelector, getPageSizeSelector, getSearchNameTermSelector,
+    getBlogsSortedBySelector, getBlogsPageSizeSelector, getSearchNameTermSelector, getBlogsPageSelector,
 } from '../../common/selectors/selectors';
 import style from './Blogs.module.css';
 import {useNavigate} from 'react-router-dom';
@@ -37,7 +37,8 @@ export const Blogs = () => {
     const sortDirection  = useSelector(getBlogsSortDirectionSelector);
     const searchNameTerm  = useSelector(getSearchNameTermSelector);
     const isAdmin = useSelector(getIsAdmin);
-    const pageSize = useSelector(getPageSizeSelector);
+    const pageSize = useSelector(getBlogsPageSizeSelector);
+    const page = useSelector(getBlogsPageSelector);
 
     const onAddPostClick = useCallback(() => {
         navigate(PATH.ADD_BLOG);
@@ -49,7 +50,7 @@ export const Blogs = () => {
 
     useEffect(() => {
         dispatch(getBlogs());
-    }, [sortBy, sortDirection, searchNameTerm, pageSize]);
+    }, [sortBy, sortDirection, searchNameTerm, pageSize, page]);
 
     return (
         <div>

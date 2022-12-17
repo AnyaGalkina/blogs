@@ -1,9 +1,10 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Title} from '../../components/title/Title';
 import {useAppDispatch} from '../../common/hooks';
-import {getPosts, setPostsFilter} from './posts-reducer';
+import {getPosts, setPostsFilter, setPostsPageSize} from './posts-reducer';
 import {useSelector} from 'react-redux';
 import {
+    getPostsPageSizeSelector,
     getPostsSelector,
     getPostsSortDirectionSelector,
     getPostsSortedBySelector
@@ -21,7 +22,6 @@ import {formattedDate} from '../../common/utils/dateConvertor';
 import {PostReqType} from '../admin/admin-api';
 import {addPost} from '../admin/admin-reducer';
 import {Filter} from '../filters/filter/Filter';
-import {setFilter} from '../blogs/blogs-reducer';
 
 
 export const Posts = () => {
@@ -30,6 +30,7 @@ export const Posts = () => {
     const isAdmin = useSelector(getIsAdmin);
     const sortBy = useSelector(getPostsSortedBySelector);
     const sortDirection = useSelector(getPostsSortDirectionSelector);
+    const pageSize = useSelector(getPostsPageSizeSelector);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -48,10 +49,13 @@ export const Posts = () => {
         setIsModalOpen(false);
     }
 
+    const onShowMoreClick = () => {
+        dispatch(setPostsPageSize());
+    }
+
     useEffect(() => {
-        debugger
         dispatch(getPosts());
-    }, [dispatch, sortBy, sortDirection])
+    }, [dispatch, sortBy, sortDirection, pageSize])
 
 
     return (
@@ -67,14 +71,14 @@ export const Posts = () => {
                     }
                 </div>
                 <div className={style.postsBlock}>
-                    {posts.map(({id, blogId, shortDescription, title, content, createdAt, blogName}: PostType) => {
+                    {posts.map(({id, blogId, title, createdAt, blogName}: PostType) => {
                         return (
                             <PostItem key={id} id={id} title={title} description={blogName} createdAt={formattedDate(createdAt)} blogId={blogId}/>
                         )
                     })}
                 </div>
                 <div className={style.showMoreBtn}>
-                    <Button>Show more <DownOutlined/></Button>
+                    <Button onClick={onShowMoreClick}>Show more <DownOutlined/></Button>
                 </div>
             </div>
             <BasicModal isModalOpen={isModalOpen} modalTitle={"Add Post"} modalContent={""} handleCancel={onCancelClickHandler}>

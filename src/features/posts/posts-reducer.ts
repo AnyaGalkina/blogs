@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice, Dispatch, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {PostByIdResType, postsAPI, PostType} from './posts-api';
 import {setAppStatus} from '../../app/app-reducer';
 import {blogsApi} from '../blogs/blogs-api';
@@ -7,13 +7,15 @@ import {AppRootStateType} from '../../app/store';
 
 export type PostsSortDirectionType = 'desc' | 'asc';
 export type SortByType = 'name' | 'createdAt';
+const defaultPortionSize = 10;
+
 
 const initialState = {
     posts: [] as Array<PostType>,
     post: null as Nullable<PostByIdResType>,
     pagesCount: 0,
     page: 1,
-    pageSize: 15,
+    pageSize: defaultPortionSize,
     totalCount: 0,
     sortBy: null as Nullable<SortByType>,
     sortDirection: null as Nullable<PostsSortDirectionType>,
@@ -25,26 +27,27 @@ const slice = createSlice({
     initialState,
     reducers: {
         setPosts(state, action: PayloadAction<{ posts: Array<PostType> }>) {
-            state.posts = action.payload.posts
+            state.posts = action.payload.posts;
         },
         setPost(state, action: PayloadAction<{ post: PostByIdResType }>) {
-            state.post = action.payload.post
+            state.post = action.payload.post;
         },
         setPostsFilter(state, action: PayloadAction<{ sortDirection: PostsSortDirectionType, sortBy: SortByType }>) {
-            debugger
-            state.sortDirection = action.payload.sortDirection
-            state.sortBy = action.payload.sortBy
+            state.sortDirection = action.payload.sortDirection;
+            state.sortBy = action.payload.sortBy;
         },
+        setPostsPageSize(state, action: PayloadAction) {
+            state.pageSize = state.pageSize + defaultPortionSize;
+        }
 
     }
 });
 
 export const postsReducer = slice.reducer;
-export const {setPosts, setPost, setPostsFilter} = slice.actions;
+export const {setPosts, setPost, setPostsFilter, setPostsPageSize} = slice.actions;
 
 export const getPosts =  createAsyncThunk('posts/getPosts', async (_: void, thunkAPI) => {
     let {dispatch, getState} = thunkAPI;
-    // getState: () => AppRootStateType;
     dispatch(setAppStatus({appStatus: 'loading'}));
     const state = getState() as AppRootStateType
     const {sortDirection, pageSize, page, sortBy} = state.postsPage;
@@ -59,8 +62,8 @@ export const getPosts =  createAsyncThunk('posts/getPosts', async (_: void, thun
     if (page > 1) {
         params.pageNumber = page;
     }
-    if (pageSize !== 15) {
-        params.pageSize = page;
+    if (pageSize !== defaultPortionSize) {
+        params.pageSize = pageSize;
     }
 
     dispatch(setAppStatus({appStatus: 'loading'}));

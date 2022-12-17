@@ -12,13 +12,16 @@ export const getBlogByIdSelector = (state: AppRootStateType): BlogType => state.
 export const getBlogsSortedBySelector = (state: AppRootStateType): Nullable<SortByType> => state.blogsPage.sortBy;
 export const getBlogsSortDirectionSelector = (state: AppRootStateType): Nullable<BlogsSortDirectionType> => state.blogsPage.sortDirection;
 export const getSearchNameTermSelector = (state: AppRootStateType): string => state.blogsPage.searchNameTerm;
-export const getPageSizeSelector = (state: AppRootStateType): number => state.blogsPage.pageSize;
+export const getBlogsPageSizeSelector = (state: AppRootStateType): number => state.blogsPage.pageSize;
+export const getBlogsPageSelector = (state: AppRootStateType): number => state.blogsPage.page;
+
 
 
 export const getPostsSelector = (state: AppRootStateType): Array<PostType>=> state.postsPage.posts;
 export const getPostByIdSelector = (state: AppRootStateType): Nullable<PostByIdResType> => state.postsPage.post;
 export const getPostsSortedBySelector = (state: AppRootStateType): Nullable<SortByType> => state.postsPage.sortBy;
 export const getPostsSortDirectionSelector = (state: AppRootStateType): Nullable<PostsSortDirectionType> => state.postsPage.sortDirection;
+export const getPostsPageSizeSelector = (state: AppRootStateType): number => state.postsPage.pageSize;
 // export const getPostByIdSelector = (state: AppRootStateType): Nullable<PostByIdResType> => state.postsPage.post;
 
 export const getAppErrorSelector = (state: AppRootStateType): Nullable<string> => state.app.appError;

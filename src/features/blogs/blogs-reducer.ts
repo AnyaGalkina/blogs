@@ -9,7 +9,6 @@ export type BlogsSortDirectionType = PostsSortDirectionType | 'startFromA' | 'st
 
 const defaultPortionSize = 10;
 
-
 const initialState = {
     blogs: [] as Array<BlogType>,
     pagesCount: 0,
