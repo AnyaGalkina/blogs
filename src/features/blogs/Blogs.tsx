@@ -2,10 +2,10 @@ import React, {useCallback, useEffect} from 'react';
 import {Title} from '../../components/title/Title';
 import {useSelector} from 'react-redux';
 import {useAppDispatch} from '../../common/hooks';
-import {getBlogs, setFilter} from './blogs-reducer';
+import {getBlogs, setBlogsPageSize, setFilter} from './blogs-reducer';
 import {
     getBlogsSelector, getBlogsSortDirectionSelector,
-    getBlogsSortedBySelector, getSearchNameTermSelector,
+    getBlogsSortedBySelector, getPageSizeSelector, getSearchNameTermSelector,
 } from '../../common/selectors/selectors';
 import style from './Blogs.module.css';
 import {useNavigate} from 'react-router-dom';
@@ -37,18 +37,19 @@ export const Blogs = () => {
     const sortDirection  = useSelector(getBlogsSortDirectionSelector);
     const searchNameTerm  = useSelector(getSearchNameTermSelector);
     const isAdmin = useSelector(getIsAdmin);
+    const pageSize = useSelector(getPageSizeSelector);
 
     const onAddPostClick = useCallback(() => {
         navigate(PATH.ADD_BLOG);
     },[]);
 
-    // const onShowMoreClick = () => {
-    //
-    // }
+    const onShowMoreClick = () => {
+        dispatch(setBlogsPageSize());
+    }
 
     useEffect(() => {
         dispatch(getBlogs());
-    }, [sortBy, sortDirection, searchNameTerm]);
+    }, [sortBy, sortDirection, searchNameTerm, pageSize]);
 
     return (
         <div>
@@ -82,7 +83,7 @@ export const Blogs = () => {
             </div>
 
             <div className={style.showMoreBtn}>
-                <Button>Show more <DownOutlined/></Button>
+                <Button onClick={onShowMoreClick}>Show more <DownOutlined/></Button>
             </div>
         </div>
     );

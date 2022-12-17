@@ -2,16 +2,19 @@ import {createAsyncThunk, createSlice, Dispatch, PayloadAction} from '@reduxjs/t
 import {blogsApi, BlogType} from './blogs-api';
 import {setAppStatus} from '../../app/app-reducer';
 import {Nullable} from '../../common/types/types';
-import {GetPostsParamsType, PostsSortDirectionType, SortByType} from '../posts/posts-reducer';
+import {PostsSortDirectionType, SortByType} from '../posts/posts-reducer';
 import {AppRootStateType} from '../../app/store';
 
 export type BlogsSortDirectionType = PostsSortDirectionType | 'startFromA' | 'startFromZ';
+
+const defaultPortionSize = 10;
+
 
 const initialState = {
     blogs: [] as Array<BlogType>,
     pagesCount: 0,
     page: 1,
-    pageSize: 15,
+    pageSize: defaultPortionSize,
     totalCount: 0,
     sortBy: null as Nullable<SortByType>,
     sortDirection: null as Nullable<BlogsSortDirectionType>,
@@ -33,11 +36,14 @@ const slice = createSlice({
         setSearchNameTerm(state, action: PayloadAction<{ searchNameTerm: string }>) {
             state.searchNameTerm = action.payload.searchNameTerm
         },
+        setBlogsPageSize(state, action: PayloadAction) {
+            state.pageSize = state.pageSize + defaultPortionSize
+        },
     },
 });
 
 export const blogsReducer = slice.reducer;
-export const {setBlogs, setFilter, setSearchNameTerm} = slice.actions;
+export const {setBlogs, setFilter, setSearchNameTerm, setBlogsPageSize} = slice.actions;
 
 
 export type GetBlogsParamsType = {
@@ -66,8 +72,8 @@ export const getBlogs = createAsyncThunk('blogs/getBlogs', async (_: void, thunk
     if (page > 1) {
         params.pageNumber = page;
     }
-    if (pageSize !== 15) {
-        params.pageSize = page;
+    if (pageSize !== defaultPortionSize) {
+        params.pageSize = pageSize;
     }
 
     if(searchNameTerm) {
