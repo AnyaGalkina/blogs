@@ -82,7 +82,8 @@ export const Posts = () => {
                                       title={title}
                                       description={blogName}
                                       createdAt={formattedDate(createdAt)}
-                                      blogId={blogId}/>
+                                      blogId={blogId}
+                            />
                         )
                     })}
                 </Flex>

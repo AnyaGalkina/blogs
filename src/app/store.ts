@@ -4,10 +4,12 @@ import {blogsReducer} from '../features/blogs/blogs-reducer';
 import {postsReducer} from '../features/posts/posts-reducer';
 import {appReducer} from './app-reducer';
 import {adminReducer} from '../features/admin/admin-reducer';
+import {usersReducer} from '../features/admin/users/users-reducer';
 
 const rootReducer = combineReducers({
     blogsPage: blogsReducer,
     postsPage: postsReducer,
+    usersPage: usersReducer,
     app: appReducer,
     admin: adminReducer,
 });
