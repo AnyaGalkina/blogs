@@ -1,36 +1,36 @@
-.blogItemContainer {
-    display: flex;
-    justify-content: space-between;
-}
+/*.blogItemContainer {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
 
-.filtersBlock{
-    display: flex;
-    justify-content: space-between;
-}
+/*.filtersBlock{*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
 
-.blogItemBlock {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-}
+/*.blogItemBlock {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: start;*/
+/*}*/
 
-.blogImg {
-    width: 300px;
-    height: 200px;
-}
+/*.blogImg {*/
+/*    width: 300px;*/
+/*    height: 200px;*/
+/*}*/
 
-.blogText {
-    padding: 20px;
-}
+/*.blogText {*/
+/*    padding: 20px;*/
+/*}*/
 
-.showMoreBtn{
-    display: flex;
-    justify-content: center;
-    margin: 30px;
-}
+/*.showMoreBtn{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin: 30px;*/
+/*}*/
 
-.addBlogBtnBlock{
-    display: flex;
-    justify-content: right;
-    margin: 20px;
-}
+/*.addBlogBtnBlock{*/
+/*    display: flex;*/
+/*    justify-content: right;*/
+/*    margin: 20px;*/
+/*}*/

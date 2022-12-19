@@ -6,6 +6,29 @@ import {HashRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {store} from './app/store';
 import App from './app/App';
+import {createGlobalStyle, ThemeProvider} from 'styled-components';
+
+
+const Global = createGlobalStyle`
+  //* {
+  //  margin: 0;
+  //  padding: 0;
+  //  box-sizing: border-box;
+  //  //font-family: ;
+  //}
+`;
+
+const theme = {
+    colors: {
+        primary: 'black',
+        secondary: '#fff',
+        admin: '#f9346b'
+    },
+    backgroundColor: {
+        primary:"",
+        secondary: '#f9346b',
+    },
+}
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -13,7 +36,10 @@ const root = ReactDOM.createRoot(
 root.render(
     <HashRouter>
         <Provider store={store}>
-            <App/>
+            <ThemeProvider theme={theme}>
+                <Global/>
+                <App/>
+            </ThemeProvider>
         </Provider>
     </HashRouter>
 );

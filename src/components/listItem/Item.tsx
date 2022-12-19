@@ -6,6 +6,7 @@ import {DeleteOutlined, EditOutlined, MoreOutlined} from '@ant-design/icons';
 import {Dropdown, MenuProps} from 'antd';
 import {NavLink} from 'react-router-dom';
 import style from './Item.module.css';
+import {Flex} from '../styled/Flex';
 
 type PropsType = {
     title: string;
@@ -13,32 +14,40 @@ type PropsType = {
     websiteUrl?: string;
     createdAt?: string;
     imgSrc?: string;
-    styleBlock?: string;
-    styleImg?: string;
     styleText?: string;
     onClick?: (id: string) => void;
     id: string;
     onEditClick?: (event: any) => void;
     onDeleteClick?: (event: any) => void;
-    styleContainer?: string;
     path: string;
+
+    justifyBlock?: string;
+    wrapBlock?: string;
+    marginBlock?: string;
+    alignBlock?: string;
+    imgWidth?: string;
+    imgHeight?: string;
+    // styleImage?: strimg;
+
 }
+
 
 export const Item = ({
                          onClick,
-                         id,
+                         id, imgHeight, imgWidth,
                          title,
                          description,
                          websiteUrl,
                          imgSrc,
                          createdAt,
-                         styleBlock,
-                         styleImg,
                          styleText,
                          onEditClick,
                          onDeleteClick,
-                         styleContainer,
                          path,
+                         justifyBlock,
+                         wrapBlock,
+                         marginBlock,
+                         alignBlock
                      }: PropsType) => {
     const isAdmin = useSelector(getIsAdmin);
 
@@ -69,22 +78,31 @@ export const Item = ({
 
 
     return (
-        <div className={styleContainer}>
+        // <Flex className={styleContainer}>
+        <>
             <NavLink className={style.link} to={path}>
-                <div className={styleBlock} onClick={onItemClick}>
-                    <Image styleImage={styleImg} alt="blog image"/>
+                <div onClick={onItemClick}>
 
-                    <div className={styleText}>
-                        <h3>{title}</h3>
+                    <Flex justify={justifyBlock} wrap={wrapBlock} align={alignBlock} margin={marginBlock}>
+                        <Image
+                            width={imgWidth}
+                            // margin={} radius={}
+                            height={imgHeight}
+                            alt="blog image"/>
 
-                        {websiteUrl && <div>
-                            <span>Website: <a href={websiteUrl}>{websiteUrl}</a></span>
-                        </div>}
+                        <div className={styleText}>
+                            <h3>{title}</h3>
 
-                        <p>{description}</p>
-                        <span>{createdAt && createdAt}</span>
-                    </div>
+                            {websiteUrl && <div>
+                                <span>Website: <a href={websiteUrl}>{websiteUrl}</a></span>
+                            </div>}
+
+                            <p>{description}</p>
+                            <span>{createdAt && createdAt}</span>
+                        </div>
+                    </Flex>
                 </div>
+
             </NavLink>
 
             {isAdmin
@@ -96,7 +114,7 @@ export const Item = ({
 
                 : ''
             }
-
-        </div>
+        </>
+        // </Flex>
     );
 };

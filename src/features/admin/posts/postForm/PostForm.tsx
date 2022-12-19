@@ -70,7 +70,7 @@ export const PostForm = ({buttonTitle, onSubmitHandler, isNewPost}: PropsType) =
     const {touched, errors, getFieldProps, handleSubmit, handleChange, values} = formik;
     return (
         <div>
-            <Image alt={'post image'} defaultImage={defaultImage} styleImage={style.formImage}/>
+            <Image alt={'post image'} defaultImage={defaultImage} width={'300px'}/>
 
             <form onSubmit={handleSubmit}>
 

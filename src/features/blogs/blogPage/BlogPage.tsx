@@ -12,6 +12,8 @@ import {getBlogByIdSelector, getPostsSelector} from '../../../common/selectors/s
 import {useSelector} from 'react-redux';
 
 
+const MAX_DESCRIPTION_LENGTH = 200;
+
 export const BlogPage = () => {
     const {blogId} = useParams();
     const dispatch = useAppDispatch();
@@ -44,9 +46,9 @@ export const BlogPage = () => {
                         <h3>{blog.name}</h3>
                         <span>{formattedDate(blog.createdAt)}</span>
                         <span>Website: </span> <a href={blog.websiteUrl}/>
-                        {isShowMoreAsked || blog.description.length <= 200 ? <p>{blog.description}</p> :
+                        {isShowMoreAsked || blog.description.length <= MAX_DESCRIPTION_LENGTH ? <p>{blog.description}</p> :
                             <div>
-                                <p>{blog.description.slice(1, 199)}</p>
+                                <p>{blog.description.slice(1, MAX_DESCRIPTION_LENGTH-1)}</p>
                                 <Button onClick={() => {
                                     setIsShowMoreAsked(true)
                                 }}>Show more</Button>

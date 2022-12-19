@@ -4,7 +4,7 @@ import {adminAPI, NewBlogType, PostReqType} from './admin-api';
 
 
 const initialState = {
-    isAdmin: false,
+    isAdmin: true,
 }
 
 const slice = createSlice({

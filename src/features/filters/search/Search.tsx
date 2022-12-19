@@ -13,6 +13,7 @@ export const Search = () => {
         setNewValue(event.target.value);
     }
 
+    // @ts-ignore
     const onEnterPressHandler = (event: KeyboardEvent<HTMLInputElement> ) => {
         if(event.code === 'Enter') {
             dispatch(setSearchNameTerm({searchNameTerm: newValue}));

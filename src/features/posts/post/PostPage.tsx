@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch} from '../../../common/hooks';
 import {Image} from '../../../components/image/Image';
-import style from './PostPage.module.css';
 import {useNavigate, useParams} from 'react-router-dom';
 import {getPostById} from '../posts-reducer';
 import {useSelector} from 'react-redux';
@@ -9,6 +8,7 @@ import {getPostByIdSelector} from '../../../common/selectors/selectors';
 import {PATH} from '../../../common/enums/path';
 import {formattedDateWithHours} from '../../../common/utils/dateConvertor';
 import {Title} from '../../../components/title/Title';
+import {Flex} from '../../../components/styled/Flex';
 
 export const PostPage = () => {
     const dispatch = useAppDispatch();
@@ -21,9 +21,7 @@ export const PostPage = () => {
     }
 
     useEffect(() => {
-        debugger
         if (postId) {
-            // @ts-ignore
             dispatch(getPostById(postId))
         }
     }, []);
@@ -37,10 +35,10 @@ export const PostPage = () => {
 
                     <button onClick={onBackToPostsClick}>Back to Posts</button>
 
-                    <div className={style.blogInfo}>
-                        <Image alt={'post'} styleImage={style.blogImage}/>
+                    <Flex margin={"30px 0"} justify={"start"}>
+                        <Image alt={'post'} width={'50px'} height={'50px'} radius={'40px'} margin={'0 20px 0 0'}/>
                         <h6>{post.blogName}</h6>
-                    </div>
+                    </Flex>
                     <div>
                         <h3>{post.title}</h3>
                         <span>{formattedDateWithHours(post.createdAt)}</span>

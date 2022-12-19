@@ -2,6 +2,8 @@ import React from 'react';
 import {Divider} from '@mui/material';
 import {Breadcrumb} from 'antd';
 import {BreadcrumbItem} from './breadcrumb/BreadcrumbItem';
+import styled from 'styled-components';
+import {Flex} from '../styled/Flex';
 
 type PropsType = {
     title: string;
@@ -13,22 +15,27 @@ export type BreadcrumbsType = {
     breadcrumbItem: string;
 }
 
+
+const StyledTitleBlock = styled.div`
+  margin-bottom: 15px;
+`;
+
 export const Title = ({title, breadcrumbs}: PropsType) => {
     return (
-        <div style={{marginBottom: '15px'}}>
-            <div style={{display: 'flex', justifyContent: 'start'}}>
+        <StyledTitleBlock>
+            <Flex justify={'start'}>
                 <h2>{title}</h2>
 
-                <Breadcrumb style={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
+                <Breadcrumb style={{display: 'flex', justifyContent: 'start', alignItems: 'end'}}>
                     {breadcrumbs ? breadcrumbs.map((breadcrumb, index) => {
                             return <BreadcrumbItem key={index} breadcrumb={breadcrumb}/>
                         })
                         : ''
                     }
                 </Breadcrumb>
-            </div>
+            </Flex>
 
             <Divider/>
-        </div>
+        </StyledTitleBlock>
     );
 };

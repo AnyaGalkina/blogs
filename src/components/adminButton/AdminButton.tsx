@@ -1,6 +1,13 @@
 import React, {memo} from 'react';
 import {Button} from 'antd';
-import style from './AdminButton.module.css';
+// import style from './AdminButton.module.css';
+import styled from 'styled-components';
+
+const StyledAdminButton = styled(Button)`
+  background-color: #f9346b;
+  color: white;
+`;
+
 
 type PropsType = {
     title: string;
@@ -9,8 +16,8 @@ type PropsType = {
 
 export const AdminButton = memo(({title, onClickHandler}: PropsType) => {
     return (
-        <Button className={style.adminButton} onClick={onClickHandler}>
+        <StyledAdminButton onClick={onClickHandler}>
             {title}
-        </Button>
+        </StyledAdminButton>
     );
 });

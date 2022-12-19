@@ -10,10 +10,7 @@ import {
     getPostsSortedBySelector
 } from '../../common/selectors/selectors';
 import {PostType} from './posts-api';
-import style from './Posts.module.css';
 import {getIsAdmin} from '../admin/admin-selectors';
-import {Button} from 'antd';
-import {DownOutlined} from '@ant-design/icons';
 import {PostItem} from './postItem/PostItem';
 import {AdminButton} from '../../components/adminButton/AdminButton';
 import {BasicModal} from '../../components/basicModal/BasicModal';
@@ -22,6 +19,8 @@ import {formattedDate} from '../../common/utils/dateConvertor';
 import {PostReqType} from '../admin/admin-api';
 import {addPost} from '../admin/admin-reducer';
 import {Filter} from '../filters/filter/Filter';
+import {Flex} from '../../components/styled/Flex';
+import {ShowMoreButton} from '../../components/buttons/showMoreButton/ShowMoreButton';
 
 
 export const Posts = () => {
@@ -40,7 +39,7 @@ export const Posts = () => {
     }, [])
 
 
-    const onPublishClickHandler =  useCallback((newPost: PostReqType) => {
+    const onPublishClickHandler = useCallback((newPost: PostReqType) => {
         dispatch(addPost(newPost));
         setIsModalOpen(false);
     }, [])
@@ -63,25 +62,38 @@ export const Posts = () => {
             <div>
                 <Title title={'Posts'}/>
                 <div>
-                    {isAdmin ? <AdminButton title={"Add Post"} onClickHandler={onAddPostClick}/>
-                        :  <Filter
-                            //@ts-ignore
-                            setFilter={setPostsFilter}
-                        />
+                    {isAdmin
+                        ? <Flex justify={'right'} margin={'32px 0px'}>
+                            <AdminButton title={'Add Post'} onClickHandler={onAddPostClick}/>
+                        </Flex>
+                        :
+                        <Flex justify={'end'} margin={'32px 0px'}>
+                            <Filter
+                                //@ts-ignore
+                                setFilter={setPostsFilter}
+                            />
+                        </Flex>
                     }
                 </div>
-                <div className={style.postsBlock}>
+                <Flex wrap={'wrap'}>
                     {posts.map(({id, blogId, title, createdAt, blogName}: PostType) => {
                         return (
-                            <PostItem key={id} id={id} title={title} description={blogName} createdAt={formattedDate(createdAt)} blogId={blogId}/>
+                            <PostItem key={id} id={id}
+                                      title={title}
+                                      description={blogName}
+                                      createdAt={formattedDate(createdAt)}
+                                      blogId={blogId}/>
                         )
                     })}
-                </div>
-                <div className={style.showMoreBtn}>
-                    <Button onClick={onShowMoreClick}>Show more <DownOutlined/></Button>
-                </div>
+                </Flex>
+
+                <ShowMoreButton onClickHandler={onShowMoreClick}/>
+
             </div>
-            <BasicModal isModalOpen={isModalOpen} modalTitle={"Add Post"} modalContent={""} handleCancel={onCancelClickHandler}>
+            <BasicModal isModalOpen={isModalOpen}
+                        modalTitle={'Add Post'}
+                        modalContent={''}
+                        handleCancel={onCancelClickHandler}>
                 <AddPost onPublishClickHandler={onPublishClickHandler}/>
             </BasicModal>
 

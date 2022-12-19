@@ -1,43 +1,43 @@
-.postsBlock {
-    display: flex;
-    flex-wrap: wrap;
-}
+/*.postsBlock {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*}*/
 
-.postItemContainer {
-    width: 320px;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-right: 30px;
-}
+/*.postItemContainer {*/
+/*    width: 320px;*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: start;*/
+/*    align-items: center;*/
+/*    flex-wrap: wrap;*/
+/*    margin-right: 30px;*/
+/*}*/
 
-.postItemBlock {
-    width: 320px;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-right: 30px;
-}
+/*.postItemBlock {*/
+/*    width: 320px;*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: start;*/
+/*    align-items: center;*/
+/*    flex-wrap: wrap;*/
+/*    margin-right: 30px;*/
+/*}*/
 
-.postImg {
-    width: 320px
+/*.postImg {*/
+/*    width: 320px*/
 
-    /*width: 70px;*/
-    /*height: 70px;*/
-    /*border-radius: 50%;*/
-}
+/*    !*width: 70px;*!*/
+/*    !*height: 70px;*!*/
+/*    !*border-radius: 50%;*!*/
+/*}*/
 
-.postText {
-    padding: 20px;
-    text-align: start;
-}
+/*.postText {*/
+/*    padding: 20px;*/
+/*    text-align: start;*/
+/*}*/
 
-.showMoreBtn{
-    display: flex;
-    justify-content: center;
-    margin: 30px;
-}
+/*.showMoreBtn{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin: 30px;*/
+/*}*/

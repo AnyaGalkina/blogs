@@ -7,16 +7,15 @@ import {
     getBlogsSelector, getBlogsSortDirectionSelector,
     getBlogsSortedBySelector, getBlogsPageSizeSelector, getSearchNameTermSelector, getBlogsPageSelector,
 } from '../../common/selectors/selectors';
-import style from './Blogs.module.css';
 import {useNavigate} from 'react-router-dom';
 import {PATH} from '../../common/enums/path';
 import {getIsAdmin} from '../admin/admin-selectors';
-import {Button} from 'antd';
-import {DownOutlined} from '@ant-design/icons';
 import {BlogItem} from './blogItem/BlogItem';
 import {AdminButton} from '../../components/adminButton/AdminButton';
 import {Filter} from '../filters/filter/Filter';
 import {Search} from '../filters/search/Search';
+import {Flex} from '../../components/styled/Flex';
+import {ShowMoreButton} from '../../components/buttons/showMoreButton/ShowMoreButton';
 
 
 
@@ -59,13 +58,13 @@ export const Blogs = () => {
             <div>
                 {isAdmin
                     ?
-                    <div className={style.addBlogBtnBlock}>
+                    <Flex justify={'right'} margin={'32px 0px'}>
                         <AdminButton title={"Add Blog"} onClickHandler={onAddPostClick}/>
-                     </div>
-                    : <div className={style.filtersBlock}>
+                     </Flex>
+                    : <Flex justify={'space-between'} margin={'32px 0px'}>
                             <Search />
                             <Filter isBlog={true} setFilter={setFilter}/>
-                    </div>
+                    </Flex>
                 }
             </div>
 
@@ -83,9 +82,7 @@ export const Blogs = () => {
                 )}
             </div>
 
-            <div className={style.showMoreBtn}>
-                <Button onClick={onShowMoreClick}>Show more <DownOutlined/></Button>
-            </div>
+            <ShowMoreButton onClickHandler={onShowMoreClick}/>
         </div>
     );
 };

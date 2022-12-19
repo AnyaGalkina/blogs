@@ -1,7 +1,6 @@
 import React, {ChangeEvent, useEffect} from 'react';
 import style from '../../admin/posts/postForm/PostForm.module.css';
 import {useAppDispatch} from '../../../common/hooks';
-// import {setFilter} from '../../posts/posts-reducer';
 import { BlogsSortDirectionType } from '../../blogs/blogs-reducer';
 import {PostsSortDirectionType, SortByType} from '../../posts/posts-reducer';
 
@@ -12,7 +11,7 @@ type ParamsSetFilterType = { sortDirection: BlogsSortDirectionType | PostsSortDi
 
 type PropsType = {
     isBlog?: boolean;
-    setFilter: ( params: ParamsSetFilterType )=> void;
+    setFilter: ( params: ParamsSetFilterType ) => void;
 }
 
 export const Filter = ({isBlog = false, setFilter}: PropsType) => {
