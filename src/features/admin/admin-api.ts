@@ -1,6 +1,6 @@
 import {instance} from '../../common/api/config';
 import {AxiosResponse} from 'axios';
-import {PostByIdResType} from '../posts/posts-api';
+import {GetItemsResType, PostByIdResType} from '../posts/posts-api';
 import { PATH } from '../../common/enums/path';
 
 
@@ -24,8 +24,32 @@ export const adminAPI = {
     deletePost(postId: string) {
         return instance.delete<AxiosResponse>(`${PATH.POSTS}/${postId}`);
     },
-}
+    // getUsers(params) {
+    //     return instance.get(PATH.USERS, params);
+    // },
+    getUsers() {
+        return instance.get<GetItemsResType<GetUserResType>>(PATH.USERS);
+    },
+    createUser(params: CreateUsersPeqType) {
+        return instance.post<CreateUsersPeqType, AxiosResponse<GetUserResType>>(PATH.USERS, params);
+    },
+    deleteUser(id: string) {
+        return instance.delete<{id: string}, AxiosResponse>(`${PATH.USERS}/${id}`);
 
+    }
+
+}
+export type GetUserResType = {
+	id: string;
+	login: string;
+	email: string;
+	createdAt: string;
+}
+export type CreateUsersPeqType = {
+    login: string;
+    password: string;
+    email: string;
+}
 
 export type NewBlogResType = {
 	id: string;
