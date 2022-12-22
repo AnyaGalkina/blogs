@@ -3,9 +3,8 @@ import {FormikErrors, useFormik} from 'formik';
 import {Image} from '../../../../components/image/Image';
 import defaultImage from '../../../../assets/images/defaultImage.png';
 import {InputWithValidation} from './inputWithValidation/InputWithValidation';
-import style from './BlogForm.module.css';
 import {NewBlogType} from '../../admin-api';
-import {AdminButton} from '../../../../components/adminButton/AdminButton';
+import {FormButton} from '../../../../components/formButton/FormButton';
 
 const MAX_LENGTH = 500;
 const re = /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
@@ -94,7 +93,7 @@ export const BlogForm = ({onSubmitHandler, buttonTitle}: PropsType) => {
                                          errors={errors.description}
                                          rows={4}
                     />
-                    <button className={style.btn} type={'submit'}>{buttonTitle}</button>
+                    <FormButton>{buttonTitle}</FormButton>
                 </form>
             </div>
         </div>

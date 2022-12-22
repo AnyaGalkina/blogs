@@ -8,6 +8,7 @@ import {useAppDispatch} from '../../../../common/hooks';
 import {getBlogs} from '../../../blogs/blogs-reducer';
 import {useSelector} from 'react-redux';
 import {getBlogsSelector} from '../../../../common/selectors/selectors';
+import {FormButton} from '../../../../components/formButton/FormButton';
 
 export type ValuesType = {
     title: string;
@@ -104,7 +105,7 @@ export const PostForm = ({buttonTitle, onSubmitHandler, isNewPost}: PropsType) =
                     rows={6}
                     panel={true}
                 />
-                <button className={style.submitButton} type="submit">{buttonTitle}</button>
+                <FormButton>{buttonTitle}</FormButton>
             </form>
         </div>
     );
