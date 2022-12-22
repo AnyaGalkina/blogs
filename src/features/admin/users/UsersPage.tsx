@@ -3,7 +3,7 @@ import {Title} from '../../../components/title/Title';
 import {BasicModal} from '../../../components/basicModal/BasicModal';
 import {useAppDispatch} from '../../../common/hooks';
 import {AdminButton} from '../../../components/adminButton/AdminButton';
-import {getUsers} from './users-reducer';
+import {createUser, getUsers} from './users-reducer';
 import {useSelector} from 'react-redux';
 import {getUsersSelector} from './users-selector';
 import {Flex} from '../../../components/styled/Flex';
@@ -11,6 +11,7 @@ import {AddUserForm} from './addUserForm/AddUserForm';
 import {User} from './user/User';
 import {StyledCellHeader} from '../../../components/styled/table/StyledRowHeader';
 import {StyledTable} from '../../../components/styled/table/StyledTable';
+import {CreateUsersPeqType} from '../admin-api';
 
 const rows = ['Username', 'Email', 'User Id', 'Data added', ''];
 
@@ -55,8 +56,8 @@ export const UsersPage = () => {
         setIsAddUserModalOpen(true);
     }
 
-    const onAddUserClickHandler = () => {
-        // dispatch(createUser);
+    const onAddUserClickHandler = (params: CreateUsersPeqType) => {
+        dispatch(createUser(params));
         setIsAddUserModalOpen(false);
     }
 
@@ -90,7 +91,7 @@ export const UsersPage = () => {
                 </StyledTable>
             </div>
             <BasicModal isModalOpen={isAddUserModalOpen} modalTitle={'Add User'} handleCancel={onCancelClickHandler}>
-                <AddUserForm/>
+                <AddUserForm onSubmitHandler={onAddUserClickHandler}/>
             </BasicModal>
         </div>
     );

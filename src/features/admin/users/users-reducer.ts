@@ -1,8 +1,6 @@
-import {createAsyncThunk, createSlice, PayloadAction, PayloadActionCreator} from '@reduxjs/toolkit';
-import {adminAPI, GetUserResType} from '../admin-api';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {adminAPI, CreateUsersPeqType, GetUserResType} from '../admin-api';
 import {setAppStatus} from '../../../app/app-reducer';
-import {postsAPI} from '../../posts/posts-api';
-import {setPosts} from '../../posts/posts-reducer';
 
 const initialState = {
     users: [] as GetUserResType []
@@ -53,13 +51,13 @@ export const deleteUser = createAsyncThunk('users/deleteUser', async (id:string,
     }
 });
 
-export const createUser = createAsyncThunk('users/deleteUser', async (id:string, thunkAPI) => {
+export const createUser = createAsyncThunk('users/deleteUser', async (params: CreateUsersPeqType, thunkAPI) => {
     const {dispatch} = thunkAPI;
 
     dispatch(setAppStatus({appStatus: 'loading'}));
 
     try {
-        const response = await adminAPI.deleteUser(id);
+        const response = await adminAPI.createUser(params);
     } catch (error: any) {
 
     } finally {
