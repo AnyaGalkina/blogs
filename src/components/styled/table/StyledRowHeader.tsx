@@ -7,14 +7,4 @@ export const StyledCellHeader = styled.th`
   width: 210px;
   align-self: stretch;
   text-align: start;
-  //border: hidden;
 `
-
-
-// export const Table = () => {
-//     return (
-//         <div>
-//
-//         </div>
-//     );
-// };

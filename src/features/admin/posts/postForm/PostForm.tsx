@@ -2,13 +2,23 @@ import React, {useEffect} from 'react';
 import {Image} from '../../../../components/image/Image';
 import defaultImage from '../../../../assets/images/defaultImage.png';
 import {FormikErrors, useFormik} from 'formik';
-import {InputWithValidation} from '../../blogs/blogForm/inputWithValidation/InputWithValidation';
+import {InputWithValidation} from '../../inputWithValidation/InputWithValidation';
 import style from './PostForm.module.css';
 import {useAppDispatch} from '../../../../common/hooks';
 import {getBlogs} from '../../../blogs/blogs-reducer';
 import {useSelector} from 'react-redux';
 import {getBlogsSelector} from '../../../../common/selectors/selectors';
-import {FormButton} from '../../../../components/formButton/FormButton';
+import { StyledFormButton} from '../../../../components/formButton/FormButton';
+import {Input} from 'antd';
+import TextArea from 'antd/es/input/TextArea';
+import {
+    BoldOutlined, DownOutlined, EditFilled,
+    ItalicOutlined, LinkOutlined,
+    OrderedListOutlined, PictureOutlined, PlaySquareOutlined, QuestionCircleOutlined,
+    StrikethroughOutlined,
+    UnorderedListOutlined
+} from '@ant-design/icons';
+import {Flex} from '../../../../components/styled/Flex';
 
 export type ValuesType = {
     title: string;
@@ -75,15 +85,13 @@ export const PostForm = ({buttonTitle, onSubmitHandler, isNewPost}: PropsType) =
 
             <form onSubmit={handleSubmit}>
 
-                <InputWithValidation
-                    touched={touched.title} errors={errors.title} text={'Post Name'} getFieldProps={getFieldProps}
-                    value={'title'}
-                />
+                <InputWithValidation touched={touched.title} errors={errors.title} text={'Post Name'}>
+                    <Input  {...getFieldProps('title')} name={'title'}/>
+                </InputWithValidation>
 
                 {isNewPost ?
                     <>
-                        <span className={style.text}>Blog</span>
-                        <div>
+                        <InputWithValidation touched={touched.blogId} errors={errors.blogId} text={'Blog'}>
                             <select value={values.blogId}
                                     onChange={handleChange}
                                     name="blogId"
@@ -93,19 +101,43 @@ export const PostForm = ({buttonTitle, onSubmitHandler, isNewPost}: PropsType) =
                                     return <option value={option.id}>{option.name}</option>
                                 })}
                             </select>
-                            <div className={style.error}>{touched.blogId && errors.blogId}</div>
-                        </div>
+                        </InputWithValidation>
                     </>
                     : ''
                 }
-                <InputWithValidation
-                    touched={touched.content} errors={errors.content} text={'Description'}
-                    getFieldProps={getFieldProps}
-                    value={'content'}
-                    rows={6}
-                    panel={true}
-                />
-                <FormButton>{buttonTitle}</FormButton>
+                <InputWithValidation touched={touched.content} errors={errors.content} text={'Description'}>
+                    <>
+                        <Flex justify={'start'}>
+                            <div>
+                                <span>H1</span>
+                                <span>H2</span>
+                                <BoldOutlined/>
+                                <ItalicOutlined/>
+                                <StrikethroughOutlined/>
+                                {/*???*/}
+                                <UnorderedListOutlined/>
+                                <OrderedListOutlined/>
+                                <EditFilled/>
+                                <DownOutlined/>
+                            </div>
+                            <div>
+                                <LinkOutlined/>
+                                <PictureOutlined/>
+                                <PlaySquareOutlined/>
+                                {/*<FileImageOutlined/>*/}
+                                {/*<PlayCircleOutlined/>*/}
+                            </div>
+
+                            <div>
+                                {/*???*/}
+                                <QuestionCircleOutlined/>
+                            </div>
+
+                        </Flex>
+                        <TextArea  {...getFieldProps('content')} name={'content'} rows={6}/>
+                    </>
+                </InputWithValidation>
+                <StyledFormButton type={'submit'}>{buttonTitle}</StyledFormButton>
             </form>
         </div>
     );

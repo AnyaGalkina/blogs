@@ -2,9 +2,11 @@ import React from 'react';
 import {FormikErrors, useFormik} from 'formik';
 import {Image} from '../../../../components/image/Image';
 import defaultImage from '../../../../assets/images/defaultImage.png';
-import {InputWithValidation} from './inputWithValidation/InputWithValidation';
+import {InputWithValidation} from '../../inputWithValidation/InputWithValidation';
 import {NewBlogType} from '../../admin-api';
-import {FormButton} from '../../../../components/formButton/FormButton';
+import {StyledFormButton} from '../../../../components/formButton/FormButton';
+import {Input} from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 
 const MAX_LENGTH = 500;
 const re = /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
@@ -17,7 +19,7 @@ const re = /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]
 // ];
 
 type PropsType = {
-    onSubmitHandler:(values: NewBlogType) => void;
+    onSubmitHandler: (values: NewBlogType) => void;
     buttonTitle: string;
 }
 
@@ -73,26 +75,23 @@ export const BlogForm = ({onSubmitHandler, buttonTitle}: PropsType) => {
                     {/*})*/}
 
                     {/*}*/}
-                    <InputWithValidation text={'Blog Name'}
-                                         value={'name'}
-                                         getFieldProps={getFieldProps}
-                                         touched={touched.name}
-                                         errors={errors.name}
-                    />
-                    <InputWithValidation text={'Website'}
-                                         value={'websiteUrl'}
-                                         getFieldProps={getFieldProps}
-                                         touched={touched.websiteUrl}
-                                         errors={errors.websiteUrl}
-                    />
+
+                    <InputWithValidation text={'Blog Name'} touched={touched.name} errors={errors.name}>
+                        <Input {...getFieldProps('name')} name={'name'}/>
+                    </InputWithValidation>
+
+                    <InputWithValidation text={'Website'} touched={touched.websiteUrl} errors={errors.websiteUrl}>
+                        <Input {...getFieldProps('websiteUrl')} name={'websiteUrl'}/>
+                    </InputWithValidation>
+
                     <InputWithValidation text={'Blog Description'}
-                                         value={'description'}
-                                         getFieldProps={getFieldProps}
                                          touched={touched.description}
-                                         errors={errors.description}
-                                         rows={4}
-                    />
-                    <FormButton>{buttonTitle}</FormButton>
+                                         errors={errors.description}>
+                        <TextArea {...getFieldProps('description')} name={'description'} rows={4}/>
+                    </InputWithValidation>
+
+                    <StyledFormButton type={'submit'}>{buttonTitle}</StyledFormButton>
+
                 </form>
             </div>
         </div>
