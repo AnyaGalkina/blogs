@@ -10,7 +10,6 @@ const MAX_LENGTH = 500;
 const re = /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
 
 
-//
 // const valueArr = [
 //     {value: "name", text:  'Blog Name'},
 //     {value: "websiteUrl", text:  'Website'},
