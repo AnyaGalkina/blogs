@@ -11,6 +11,9 @@ import {Navigate, Route, Routes} from 'react-router-dom';
 import {Content} from 'antd/es/layout/layout';
 import styled from 'styled-components';
 import {UsersPage} from '../../../features/admin/users/UsersPage';
+import {SignIn} from '../../../features/auth/signIn/SignIn';
+import { SignUp } from '../../../features/auth/signUp/SignUp';
+import {MailConfirmed} from '../../../features/auth/signUp/mailConfirmed/MailConfirmed';
 
 const routes = [
     {path: PATH.BLOGS, component: <Blogs/>},
@@ -21,7 +24,13 @@ const routes = [
     {path: `${PATH.POSTS}/:postId`, component: <PostPage/>},
     {path: PATH.USERS, component: <UsersPage/>},
     {path: PATH.PAGE_NOT_FOUND, component: <PageNotFound/>},
-]
+    {path: PATH.PAGE_NOT_FOUND, component: <PageNotFound/>},
+    {path: `${PATH.AUTH}${PATH.LOGIN}`, component: <SignIn/>},
+    {path: `${PATH.AUTH}${PATH.SIGN_UP}`, component: <SignUp/>},
+    {path: `${PATH.AUTH}${PATH.SIGN_UP}-confirmation/:code`, component: <MailConfirmed/>},
+];
+
+
 
 const StyledContent = styled(Content)`
   padding: 0 5% 0 2%;

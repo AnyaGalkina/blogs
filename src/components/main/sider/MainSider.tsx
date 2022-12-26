@@ -39,9 +39,9 @@ export const MainSider = () => {
 
     return (
         <StyledSider theme={'light'}>
-            {linksToMap.map(link => {
+            {linksToMap.map((link,index) => {
                 return (
-                    <StyledSiderItem>
+                    <StyledSiderItem key={index}>
                         <NavLink to={link.path}
                                  style={({isActive}) =>
                                      (isActive ? {color: '#f9346b'} : {color: 'black'})}>

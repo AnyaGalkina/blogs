@@ -1,9 +1,11 @@
 import React from 'react';
 import {FormikErrors, useFormik} from 'formik';
-import {CreateUsersPeqType} from '../../admin-api';
-import {InputWithValidation} from '../../inputWithValidation/InputWithValidation';
-import {StyledFormButton} from '../../../../components/formButton/FormButton';
+import {CreateUserPeqType} from '../../admin/admin-api';
+import {InputWithValidation} from '../../admin/inputWithValidation/InputWithValidation';
+import {StyledFormButton} from '../../../components/buttons/formButton/FormButton';
 import {Input} from 'antd';
+import {StyledGreyText} from '../../../components/styled/StyledGreyText';
+import {Flex} from '../../../components/styled/Flex';
 
 
 const MAX_LOGIN_LENGTH = 10;
@@ -16,11 +18,13 @@ const MIN_PASSWORD_LENGTH = 6;
 // const reLogin = /^[a-zA-Z0-9_-]*$;\
 
 type PropsType = {
-    onSubmitHandler: (values:CreateUsersPeqType) => void;
+    onSubmitHandler: (values: CreateUserPeqType) => void;
+    buttonTitle: string;
+    isSignUp?: string;
 }
 
 
-export const AddUserForm = ({onSubmitHandler}: PropsType) => {
+export const SignUpForm = ({onSubmitHandler, buttonTitle, isSignUp}: PropsType) => {
 
     const formik = useFormik({
         initialValues: {
@@ -29,7 +33,7 @@ export const AddUserForm = ({onSubmitHandler}: PropsType) => {
             email: '',
         },
         validate: (values) => {
-            const errors: FormikErrors<CreateUsersPeqType> = {};
+            const errors: FormikErrors<CreateUserPeqType> = {};
 
             const {login, password, email} = values;
 
@@ -62,9 +66,7 @@ export const AddUserForm = ({onSubmitHandler}: PropsType) => {
             return errors
         },
         onSubmit: (values) => {
-            // console.log(values)
             onSubmitHandler(values);
-            formik.resetForm();
         }
     });
 
@@ -74,19 +76,32 @@ export const AddUserForm = ({onSubmitHandler}: PropsType) => {
         <div>
             <form onSubmit={handleSubmit}>
 
-                <InputWithValidation touched={touched.email} errors={errors.email} text={'Email of the user'}>
-                    <Input {...getFieldProps('email')} name={'email'}/>
-                </InputWithValidation>
-
                 <InputWithValidation touched={touched.login} errors={errors.login} text={'Username'}>
                     <Input {...getFieldProps('login')} name={'login'}/>
+                </InputWithValidation>
+
+                <InputWithValidation touched={touched.email} errors={errors.email} text={'Email'}>
+                    <Input {...getFieldProps('email')} name={'email'}/>
                 </InputWithValidation>
 
                 <InputWithValidation touched={touched.password} errors={errors.password} text={'Password'}>
                     <Input.Password {...getFieldProps('password')}/>
                 </InputWithValidation>
 
-                <StyledFormButton type={'submit'}>Add user</StyledFormButton>
+                <Flex direction={'column'} align={'start'}>
+                    <>
+                        {isSignUp
+                            ?
+                            <StyledGreyText>
+                                The link has been sent by email. If you don't received an email, sent link again
+                            </StyledGreyText>
+                            : ''
+                        }
+                        <div style={{marginTop: '10px'}}>
+                            <StyledFormButton type={'submit'}>{buttonTitle}</StyledFormButton>
+                        </div>
+                    </>
+                </Flex>
             </form>
         </div>
     );

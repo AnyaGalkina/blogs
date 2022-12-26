@@ -1,6 +1,6 @@
 import {AppRootStateType} from '../../app/store';
 import {BlogType} from '../../features/blogs/blogs-api';
-import {PostByIdResType, PostType} from '../../features/posts/posts-api';
+import {CommentType, PostByIdResType, PostType} from '../../features/posts/posts-api';
 import {AppStatusType} from '../../app/app-reducer';
 // @ts-ignore
 import {Nullable} from '../types/types';
@@ -22,8 +22,14 @@ export const getPostByIdSelector = (state: AppRootStateType): Nullable<PostByIdR
 export const getPostsSortedBySelector = (state: AppRootStateType): Nullable<SortByType> => state.postsPage.sortBy;
 export const getPostsSortDirectionSelector = (state: AppRootStateType): Nullable<PostsSortDirectionType> => state.postsPage.sortDirection;
 export const getPostsPageSizeSelector = (state: AppRootStateType): number => state.postsPage.pageSize;
+export const getPostCommentsSelector = (state: AppRootStateType): CommentType[] => state.comments.comments;
+export const getTotalCountPostCommentsSelector = (state: AppRootStateType): number => state.comments.totalCount;
+export const getPageSizeCommentsSelector = (state: AppRootStateType): number => state.comments.pageSize;
 // export const getPostByIdSelector = (state: AppRootStateType): Nullable<PostByIdResType> => state.postsPage.post;
 
 export const getAppErrorSelector = (state: AppRootStateType): Nullable<string> => state.app.appError;
 export const getAppStateSelector = (state: AppRootStateType): AppStatusType => state.app.appStatus;
+
+
+export const getEmailSelector = (state: AppRootStateType): string => state.auth.email;
 
