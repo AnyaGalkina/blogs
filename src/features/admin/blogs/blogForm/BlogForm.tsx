@@ -4,7 +4,7 @@ import {Image} from '../../../../components/image/Image';
 import defaultImage from '../../../../assets/images/defaultImage.png';
 import {InputWithValidation} from '../../inputWithValidation/InputWithValidation';
 import {NewBlogType} from '../../admin-api';
-import {StyledFormButton} from '../../../../components/formButton/FormButton';
+import {StyledFormButton} from '../../../../components/buttons/formButton/FormButton';
 import {Input} from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 

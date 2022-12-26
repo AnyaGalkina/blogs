@@ -90,16 +90,19 @@ export const Item = ({
                             height={imgHeight}
                             alt="blog image"/>
 
-                        <div className={styleText}>
+                        <Flex margin={'5px'} direction={'column'} align={"start"}>
                             <h3>{title}</h3>
 
-                            {websiteUrl && <div>
-                                <span>Website: <a href={websiteUrl}>{websiteUrl}</a></span>
-                            </div>}
+                            {
+                                websiteUrl ? <div>
+                                    <span>Website: <a href={websiteUrl}>{websiteUrl}</a></span>
+                                </div>
+                                    : <span></span>
+                            }
 
                             <p>{description}</p>
                             <span>{createdAt && createdAt}</span>
-                        </div>
+                        </Flex>
                     </Flex>
                 </div>
 

@@ -11,7 +11,7 @@ import {useNavigate} from 'react-router-dom';
 import {PATH} from '../../common/enums/path';
 import {getIsAdmin} from '../admin/admin-selectors';
 import {BlogItem} from './blogItem/BlogItem';
-import {AdminButton} from '../../components/adminButton/AdminButton';
+import {AdminButton} from '../../components/buttons/adminButton/AdminButton';
 import {Filter} from '../filters/filter/Filter';
 import {Search} from '../filters/search/Search';
 import {Flex} from '../../components/styled/Flex';

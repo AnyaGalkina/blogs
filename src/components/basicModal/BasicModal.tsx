@@ -1,6 +1,6 @@
 import {Button, Divider, Modal} from 'antd';
 import React, {ReactNode} from 'react';
-import {AdminButton} from '../adminButton/AdminButton';
+import {AdminButton} from '../buttons/adminButton/AdminButton';
 import style from './BasicModal.module.css';
 
 type PropsType = {
