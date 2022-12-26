@@ -9,6 +9,7 @@ import {PATH} from '../../../common/enums/path';
 import {formattedDateWithHours} from '../../../common/utils/dateConvertor';
 import {Title} from '../../../components/title/Title';
 import {Flex} from '../../../components/styled/Flex';
+import {Comments} from './comments/Comments';
 
 export const PostPage = () => {
     const dispatch = useAppDispatch();
@@ -28,7 +29,7 @@ export const PostPage = () => {
 
     return (
         <div>
-            {post
+            {post && postId
                 ? <>
 
                     <Title title={'Posts'} breadcrumbs={[{breadcrumbItem: post.blogName}]}/>
@@ -45,7 +46,7 @@ export const PostPage = () => {
                         <Image alt={'post'}/>
                         <section>{post.content}</section>
                     </div>
-
+                    <Comments postId={postId}/>
                 </>
                 : ''
             }

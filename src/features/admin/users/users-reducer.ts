@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {adminAPI, CreateUsersPeqType, GetUserResType} from '../admin-api';
+import {adminAPI, CreateUserPeqType, GetUserResType} from '../admin-api';
 import {setAppStatus} from '../../../app/app-reducer';
 
 const initialState = {
@@ -11,7 +11,6 @@ const slice = createSlice({
     initialState,
     reducers: {
         setUsers(state, action: PayloadAction<{ users: GetUserResType [] }>) {
-            debugger
             state.users = action.payload.users
         }
     }
@@ -51,7 +50,7 @@ export const deleteUser = createAsyncThunk('users/deleteUser', async (id:string,
     }
 });
 
-export const createUser = createAsyncThunk('users/deleteUser', async (params: CreateUsersPeqType, thunkAPI) => {
+export const createUser = createAsyncThunk('users/deleteUser', async (params: CreateUserPeqType, thunkAPI) => {
     const {dispatch} = thunkAPI;
 
     dispatch(setAppStatus({appStatus: 'loading'}));

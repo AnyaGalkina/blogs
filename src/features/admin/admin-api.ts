@@ -30,8 +30,8 @@ export const adminAPI = {
     getUsers() {
         return instance.get<GetItemsResType<GetUserResType>>(PATH.USERS);
     },
-    createUser(params: CreateUsersPeqType) {
-        return instance.post<CreateUsersPeqType, AxiosResponse<GetUserResType>>(PATH.USERS, params);
+    createUser(params: CreateUserPeqType) {
+        return instance.post<CreateUserPeqType, AxiosResponse<GetUserResType>>(PATH.USERS, params);
     },
     deleteUser(id: string) {
         return instance.delete<{id: string}, AxiosResponse>(`${PATH.USERS}/${id}`);
@@ -45,7 +45,7 @@ export type GetUserResType = {
 	email: string;
 	createdAt: string;
 }
-export type CreateUsersPeqType = {
+export type CreateUserPeqType = {
     login: string;
     password: string;
     email: string;

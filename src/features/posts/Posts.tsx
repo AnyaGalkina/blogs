@@ -12,7 +12,7 @@ import {
 import {PostType} from './posts-api';
 import {getIsAdmin} from '../admin/admin-selectors';
 import {PostItem} from './postItem/PostItem';
-import {AdminButton} from '../../components/adminButton/AdminButton';
+import {AdminButton} from '../../components/buttons/adminButton/AdminButton';
 import {BasicModal} from '../../components/basicModal/BasicModal';
 import {AddPost} from '../admin/posts/addPost/AddPost';
 import {formattedDate} from '../../common/utils/dateConvertor';
@@ -21,6 +21,7 @@ import {addPost} from '../admin/admin-reducer';
 import {Filter} from '../filters/filter/Filter';
 import {Flex} from '../../components/styled/Flex';
 import {ShowMoreButton} from '../../components/buttons/showMoreButton/ShowMoreButton';
+import {DivWithMargin} from '../../components/styled/StyledWithMargin';
 
 
 export const Posts = () => {
@@ -78,12 +79,16 @@ export const Posts = () => {
                 <Flex wrap={'wrap'}>
                     {posts.map(({id, blogId, title, createdAt, blogName}: PostType) => {
                         return (
-                            <PostItem key={id} id={id}
-                                      title={title}
-                                      description={blogName}
-                                      createdAt={formattedDate(createdAt)}
-                                      blogId={blogId}
-                            />
+                            <DivWithMargin margin={"0 30 0 0"} key={id}>
+                                <PostItem
+                                    // key={id}
+                                          id={id}
+                                          title={title}
+                                          description={blogName}
+                                          createdAt={formattedDate(createdAt)}
+                                          blogId={blogId}
+                                />
+                            </DivWithMargin>
                         )
                     })}
                 </Flex>

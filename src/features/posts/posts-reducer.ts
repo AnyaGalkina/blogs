@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {PostByIdResType, postsAPI, PostType} from './posts-api';
+import { PostByIdResType, postsAPI, PostType} from './posts-api';
 import {setAppStatus} from '../../app/app-reducer';
 import {blogsApi} from '../blogs/blogs-api';
 import {Nullable} from '../../common/types/types';
@@ -19,6 +19,7 @@ const initialState = {
     totalCount: 0,
     sortBy: null as Nullable<SortByType>,
     sortDirection: null as Nullable<PostsSortDirectionType>,
+    // comments: [] as Array<CommentType>,
 };
 
 
@@ -38,8 +39,9 @@ const slice = createSlice({
         },
         setPostsPageSize(state, action: PayloadAction) {
             state.pageSize = state.pageSize + defaultPortionSize;
-        }
-
+        },
+    //     setComments(state, action: PayloadAction<{ comments: Array<CommentType> }>) {
+    //     state.pageSize = state.pageSize + defaultPortionSize;
     }
 });
 

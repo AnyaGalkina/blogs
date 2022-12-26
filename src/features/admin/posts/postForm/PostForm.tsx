@@ -8,7 +8,7 @@ import {useAppDispatch} from '../../../../common/hooks';
 import {getBlogs} from '../../../blogs/blogs-reducer';
 import {useSelector} from 'react-redux';
 import {getBlogsSelector} from '../../../../common/selectors/selectors';
-import { StyledFormButton} from '../../../../components/formButton/FormButton';
+import {StyledFormButton} from '../../../../components/buttons/formButton/FormButton';
 import {Input} from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import {
