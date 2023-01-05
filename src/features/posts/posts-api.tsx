@@ -1,7 +1,10 @@
+import axios from 'axios';
 import {instance} from '../../common/api/config';
 import {PATH} from '../../common/enums/path';
 import {GetPostsParamsType} from './posts-reducer';
 import {AxiosResponse} from 'axios';
+import {loadState} from '../../common/utils/local-storage';
+import {AuthMeResParamsType} from '../auth/auth-api';
 
 export const postsAPI = {
     getPosts(params: GetPostsParamsType) {
@@ -13,19 +16,23 @@ export const postsAPI = {
     getPostComments(postId: string, params: GetPostsParamsType) {
         return instance.get<CommentType[]>(`${PATH.POSTS}/${postId}${PATH.COMMENTS}`, {params});
     },
-    addPostComment(postId: string, comment: string) {
-        return instance.post<CommentType>(`${PATH.POSTS}/${postId}${PATH.COMMENTS}`, {comment});
+    addPostComment(params: { postId: string, comment: string }) {
+        const {postId, comment} = params;
+        const accessToken = loadState();
+
+        return axios.post<CommentType>(`${PATH.POSTS}/${postId}${PATH.COMMENTS}`, {comment}, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
     },
-    // getComments() {
-    //
-    // },
+    updatePostComment(params: { commentId: string, comment: string }) {
+        const {commentId, comment} = params;
+        // return instanceBearer.put<{ id: string }, AxiosResponse>(`${PATH.COMMENTS}/${commentId}`, {comment});
+    },
     deleteComment(commentId: string) {
-        return instance.delete<{ id: string }, AxiosResponse>(`${PATH.COMMENTS}/${commentId}`);
+        // return instanceBearer.delete<{ id: string }, AxiosResponse>(`${PATH.COMMENTS}/${commentId}`);
     },
-    updateComment() {
-
-    }
-
 };
 
 export type GetItemsResType<T> = {

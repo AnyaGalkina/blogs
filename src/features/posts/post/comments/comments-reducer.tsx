@@ -32,8 +32,8 @@ const slice = createSlice({
         setComments(state, action: PayloadAction<{ comments: Array<CommentType> }>) {
             state.comments = action.payload.comments
         },
-        setCommentsPageSize(state, action: PayloadAction){
-                state.pageSize = state.pageSize + defaultPortionSize;
+        setCommentsPageSize(state, action: PayloadAction) {
+            state.pageSize = state.pageSize + defaultPortionSize;
         }
     }
 });
@@ -41,13 +41,12 @@ const slice = createSlice({
 export const commentsReducer = slice.reducer;
 export const {setComments, setCommentsPageSize} = slice.actions;
 
-export const addPostComment = createAsyncThunk("comments/addPostComment", async (params: {comment: string, postId: string}, thunkAPI) => {
+export const addPostComment = createAsyncThunk('comments/addPostComment', async (params: {postId: string, comment: string }, thunkAPI) => {
     const {dispatch} = thunkAPI;
-    const {postId,comment} = params;
     dispatch(setAppStatus({appStatus: 'loading'}));
     debugger
     try {
-        const response = await postsAPI.addPostComment(postId, comment);
+        const response = await postsAPI.addPostComment(params);
         // dispatch(setComments({comment: response.data}));
     } catch (error: any) {
 
@@ -55,7 +54,39 @@ export const addPostComment = createAsyncThunk("comments/addPostComment", async 
         dispatch(setAppStatus({appStatus: 'idle'}));
     }
 
-})
+});
+
+
+export const deleteComment = createAsyncThunk('comments/deletePostComment', async (commentId: string, thunkAPI) => {
+    const {dispatch} = thunkAPI;
+    dispatch(setAppStatus({appStatus: 'loading'}));
+    debugger
+    try {
+        const response = await postsAPI.deleteComment(commentId);
+        // dispatch(setComments({comment: response.data}));
+    } catch (error: any) {
+
+    } finally {
+        dispatch(setAppStatus({appStatus: 'idle'}));
+    }
+
+});
+
+export const updateComment = createAsyncThunk('comments/updatePostComment', async (params: { commentId: string, comment: string }, thunkAPI) => {
+    const {dispatch} = thunkAPI;
+    dispatch(setAppStatus({appStatus: 'loading'}));
+    debugger
+    try {
+        const response = await postsAPI.updatePostComment(params);
+        // dispatch(setComments({comment: response.data}));
+    } catch (error: any) {
+
+    } finally {
+        dispatch(setAppStatus({appStatus: 'idle'}));
+    }
+
+});
+
 
 export const getPostComments = createAsyncThunk('comments/getPostComments', async (postId: string, thunkAPI) => {
     const {dispatch, getState} = thunkAPI;

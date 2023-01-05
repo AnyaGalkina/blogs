@@ -1,9 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, memo, useCallback} from 'react';
 import {useSelector} from 'react-redux';
 import {useAppDispatch} from '../../../../common/hooks';
 import {addPostComment, getPostComments, setCommentsPageSize} from './comments-reducer';
 import {Comment} from './comment/Comment';
 import {
+    getAccessTokenSelector,
+    getIsLoggedInSelector,
     getPageSizeCommentsSelector,
     getPostCommentsSelector,
     getTotalCountPostCommentsSelector
@@ -15,21 +17,23 @@ type PropsType = {
     postId: string
 }
 
-export const Comments = ({postId}: PropsType) => {
+export const Comments = memo(({postId}: PropsType) => {
     const dispatch = useAppDispatch();
+
     const comments = useSelector(getPostCommentsSelector);
     const totalCount = useSelector(getTotalCountPostCommentsSelector);
     const pageSize = useSelector(getPageSizeCommentsSelector);
+    const isLoggedIn = useSelector(getIsLoggedInSelector);
 
-    const onShowMoreClick = () => {
+    const showComments = comments.length > 0 && postId;
+
+    const onShowMoreClick = useCallback(() => {
         dispatch(setCommentsPageSize());
-    }
+    }, [dispatch]);
 
-    const onAddCommentClick = ( comment: string ) => {
-        debugger
-        dispatch(addPostComment({postId, comment }));
+    const onAddCommentClick = (comment: string) => {
+        dispatch(addPostComment({postId, comment}));
     }
-
 
     useEffect(() => {
         dispatch(getPostComments(postId));
@@ -37,21 +41,23 @@ export const Comments = ({postId}: PropsType) => {
 
     return (
         <div>
-            <h2>Commets({totalCount && totalCount})</h2>
-            {/*{ if loged in*/}
-                <AddCommentForm onSubmitHandler={onAddCommentClick}/>
 
-            {/*}*/}
+            <h2>Comments({totalCount && totalCount})</h2>
+
+            {isLoggedIn &&
+                <AddCommentForm onSubmitHandler={onAddCommentClick}/>
+            }
+
             <div>
-                {comments.length > 0 && postId &&
+                {showComments &&
                     comments.map(comment => {
-                        return (
-                            <Comment key={comment.id} comment={comment}/>
-                        )
+                        return <Comment key={comment.id} comment={comment}/>
                     })
                 }
             </div>
-            {totalCount ?  <ShowMoreButton onClickHandler={onShowMoreClick}/> : ''}
+
+            {totalCount ? <ShowMoreButton onClickHandler={onShowMoreClick}/> : ''}
+
         </div>
     );
-};
+});
