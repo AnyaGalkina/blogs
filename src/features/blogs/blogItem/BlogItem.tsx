@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {PATH} from '../../../common/enums/path';
 import {Item} from '../../../components/listItem/Item';
@@ -18,6 +18,7 @@ type PropsType = {
 
 export const BlogItem = ({title, description, websiteUrl, id}: PropsType) => {
     const dispatch = useAppDispatch();
+
     const navigate = useNavigate();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,13 +32,13 @@ export const BlogItem = ({title, description, websiteUrl, id}: PropsType) => {
         setIsModalOpen(false);
     }
 
-    const onCancelClickHandler = () => {
+    const onCancelClickHandler = useCallback(() => {
         setIsModalOpen(false);
-    }
+    }, [isModalOpen]);
 
-    const onEditClickHandler = () => {
+    const onEditClickHandler = useCallback(() => {
         navigate(`${PATH.EDIT_BLOG}/${id}`);
-    }
+    }, []);
 
     return (
         <>
@@ -46,24 +47,18 @@ export const BlogItem = ({title, description, websiteUrl, id}: PropsType) => {
                     title={title}
                     description={description}
                     websiteUrl={websiteUrl}
-
-                    // styleContainer={style.blogItemContainer}
-
-                    // styleBlock={style.blogItemBlock}
-                    // styleImg={style.blogImg}
                     justifyBlock={'start'}
                     imgWidth={'300px'}
                     imgHeight={'200px'}
-
-
-                    // styleText={style.blogText}
                     id={id}
                     onEditClick={onEditClickHandler}
                     onDeleteClick={onDeleteClickHandler}
                     path={`${PATH.BLOGS}/${id}${PATH.POSTS}`}
                 />
             </Flex>
+
             <Divider/>
+
             <BasicModal isModalOpen={isModalOpen}
                         handleOk={onOkClickHandler}
                         handleCancel={onCancelClickHandler}
@@ -72,6 +67,7 @@ export const BlogItem = ({title, description, websiteUrl, id}: PropsType) => {
                         okButtonTitle={'Ok'}
                         cancelButtonTitle={'Cancel'}
             />
+
         </>
     );
 };

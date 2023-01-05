@@ -25,12 +25,10 @@ const routes = [
     {path: PATH.USERS, component: <UsersPage/>},
     {path: PATH.PAGE_NOT_FOUND, component: <PageNotFound/>},
     {path: PATH.PAGE_NOT_FOUND, component: <PageNotFound/>},
-    {path: `${PATH.AUTH}${PATH.LOGIN}`, component: <SignIn/>},
-    {path: `${PATH.AUTH}${PATH.SIGN_UP}`, component: <SignUp/>},
-    {path: `${PATH.AUTH}${PATH.SIGN_UP}-confirmation/:code`, component: <MailConfirmed/>},
+    {path: PATH.LOGIN, component: <SignIn/>},
+    {path: PATH.SIGN_UP, component: <SignUp/>},
+    {path: PATH.SIGN_UP_CONFIRMATION, component: <MailConfirmed/>},
 ];
-
-
 
 const StyledContent = styled(Content)`
   padding: 0 5% 0 2%;
@@ -40,7 +38,7 @@ export const StyledRoutes = () => {
     return (
         <StyledContent>
             <Routes>
-                <Route path="/" element={<Navigate to={PATH.BLOGS}/>}/>
+                <Route path="/" element={<Navigate to={PATH.LOGIN}/>}/>
                 {routes.map(({path, component}, index) => {
                     return (
                         <Route key={index} path={path} element={component}/>

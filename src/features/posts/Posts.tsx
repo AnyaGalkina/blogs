@@ -21,11 +21,11 @@ import {addPost} from '../admin/admin-reducer';
 import {Filter} from '../filters/filter/Filter';
 import {Flex} from '../../components/styled/Flex';
 import {ShowMoreButton} from '../../components/buttons/showMoreButton/ShowMoreButton';
-import {DivWithMargin} from '../../components/styled/StyledWithMargin';
 
 
 export const Posts = () => {
     const dispatch = useAppDispatch();
+
     const posts = useSelector(getPostsSelector);
     const isAdmin = useSelector(getIsAdmin);
     const sortBy = useSelector(getPostsSortedBySelector);
@@ -34,24 +34,22 @@ export const Posts = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-
     const onAddPostClick = useCallback(() => {
         setIsModalOpen(true);
-    }, [])
-
+    }, [isModalOpen])
 
     const onPublishClickHandler = useCallback((newPost: PostReqType) => {
         dispatch(addPost(newPost));
         setIsModalOpen(false);
-    }, [])
+    }, [isModalOpen])
 
-    const onCancelClickHandler = () => {
+    const onCancelClickHandler = useCallback(() => {
         setIsModalOpen(false);
-    }
+    }, [isModalOpen]);
 
-    const onShowMoreClick = () => {
+    const onShowMoreClick = useCallback(() => {
         dispatch(setPostsPageSize());
-    }
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(getPosts());
@@ -67,8 +65,7 @@ export const Posts = () => {
                         ? <Flex justify={'right'} margin={'32px 0px'}>
                             <AdminButton title={'Add Post'} onClickHandler={onAddPostClick}/>
                         </Flex>
-                        :
-                        <Flex justify={'end'} margin={'32px 0px'}>
+                        : <Flex justify={'end'} margin={'32px 0px'}>
                             <Filter
                                 //@ts-ignore
                                 setFilter={setPostsFilter}
@@ -79,16 +76,14 @@ export const Posts = () => {
                 <Flex wrap={'wrap'}>
                     {posts.map(({id, blogId, title, createdAt, blogName}: PostType) => {
                         return (
-                            <DivWithMargin margin={"0 30 0 0"} key={id}>
-                                <PostItem
-                                    // key={id}
-                                          id={id}
-                                          title={title}
-                                          description={blogName}
-                                          createdAt={formattedDate(createdAt)}
-                                          blogId={blogId}
-                                />
-                            </DivWithMargin>
+                            <PostItem
+                                key={id}
+                                id={id}
+                                title={title}
+                                description={blogName}
+                                createdAt={formattedDate(createdAt)}
+                                blogId={blogId}
+                            />
                         )
                     })}
                 </Flex>

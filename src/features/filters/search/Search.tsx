@@ -7,6 +7,7 @@ import {SearchOutlined} from '@ant-design/icons';
 
 export const Search = () => {
     const dispatch = useAppDispatch();
+
     const [newValue, setNewValue] = useState('');
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -15,6 +16,7 @@ export const Search = () => {
 
     // @ts-ignore
     const onEnterPressHandler = (event: KeyboardEvent<HTMLInputElement> ) => {
+
         if(event.code === 'Enter') {
             dispatch(setSearchNameTerm({searchNameTerm: newValue}));
         }

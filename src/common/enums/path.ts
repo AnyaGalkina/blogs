@@ -6,8 +6,9 @@ export enum PATH {
     COMMENTS = '/comments',
     USERS = '/users',
     PAGE_NOT_FOUND = '/404',
-    ME = '/me',
-    AUTH = '/auth',
-    LOGIN = '/login',
-    SIGN_UP = '/registration',
+    ME = '/auth/me',
+    LOGIN = '/auth/login',
+    SIGN_UP = '/auth/registration',
+    SIGN_UP_CONFIRMATION = '/auth/registration--confirmation/:code',
+    REFRESH_TOKEN = '/auth/refresh-token',
 }

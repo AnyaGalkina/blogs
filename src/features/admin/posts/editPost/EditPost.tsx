@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {PostForm, ValuesType} from '../postForm/PostForm';
 import {PostReqType} from '../../admin-api';
 
@@ -10,10 +10,9 @@ type PropsType = {
 const MAX_SHORT_DESCRIPTION_LENGTH = 100;
 
 
-export const EditPost = ({blogId, onPublishClickHandler}: PropsType) => {
+export const EditPost = memo(({blogId, onPublishClickHandler}: PropsType) => {
 
     const onPublishClick = ({title, content}: ValuesType) => {
-        console.log('params')
         const newPost: PostReqType = {
             title, content,
             shortDescription: content.substring(0, MAX_SHORT_DESCRIPTION_LENGTH),
@@ -27,4 +26,4 @@ export const EditPost = ({blogId, onPublishClickHandler}: PropsType) => {
             <PostForm buttonTitle={'Publish'} onSubmitHandler={onPublishClick} isNewPost={false}/>
         </div>
     );
-};
+});

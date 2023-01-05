@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react';
+import React, {ReactElement, memo} from 'react';
 import {StyledInputError} from '../../../components/styled/StyledInputError';
 import {StyledGreyText} from '../../../components/styled/StyledGreyText';
 
@@ -10,7 +10,7 @@ type PropsType = {
     text: string;
 }
 
-export const InputWithValidation = ({
+export const InputWithValidation = memo(({
                                         touched,
                                         children,
                                         errors,
@@ -23,4 +23,4 @@ export const InputWithValidation = ({
             <StyledInputError>{touched && errors}</StyledInputError>
         </div>
     );
-};
+});

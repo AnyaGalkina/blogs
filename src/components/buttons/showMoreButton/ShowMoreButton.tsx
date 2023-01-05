@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Flex} from '../../styled/Flex';
 import {Button} from 'antd';
 import {DownOutlined} from '@ant-design/icons';
@@ -8,7 +8,7 @@ type PropsType = {
     onClickHandler: () => void;
 }
 
-export const ShowMoreButton = ({onClickHandler}: PropsType) => {
+export const ShowMoreButton = memo(({onClickHandler}: PropsType) => {
     return (
         <Flex margin={'30px'}>
             <Button onClick={onClickHandler}>
@@ -17,4 +17,4 @@ export const ShowMoreButton = ({onClickHandler}: PropsType) => {
             </Button>
         </Flex>
     );
-};
+});

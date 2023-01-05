@@ -1,6 +1,5 @@
 import React, {memo} from 'react';
 import {Button} from 'antd';
-// import style from './AdminButton.module.css';
 import styled from 'styled-components';
 
 const StyledAdminButton = styled(Button)`

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, memo, useCallback} from 'react';
 import DeleteOutlined from '@ant-design/icons/lib/icons/DeleteOutlined';
 import {GetUserResType} from '../../admin-api';
 import {BasicModal} from '../../../../components/basicModal/BasicModal';
@@ -12,8 +12,7 @@ type PropsType = {
     user: GetUserResType
 }
 
-
-export const User = ({user}: PropsType) => {
+export const User = memo(({user}: PropsType) => {
     const dispatch = useAppDispatch();
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -23,18 +22,18 @@ export const User = ({user}: PropsType) => {
         setIsDeleteModalOpen(true);
     }
 
-    const onNoClickHandler = () => {
+    const onNoClickHandler = useCallback(() => {
         setIsDeleteModalOpen(false);
-    }
+    }, [isDeleteModalOpen]);
 
-    const onYesClickHandler = () => {
+    const onYesClickHandler = useCallback(() => {
         dispatch(deleteUser(id));
         setIsDeleteModalOpen(false);
-    }
-
+    }, [isDeleteModalOpen, id]);
 
     return (
         <tr>
+
             <StyledCell>{login}</StyledCell>
             <StyledCell>{email}</StyledCell>
             <StyledCell>{id}</StyledCell>
@@ -44,6 +43,7 @@ export const User = ({user}: PropsType) => {
                     <DeleteOutlined onClick={onDeleteClickHandler}/>
                 </Flex>
             </StyledCell>
+
             <BasicModal isModalOpen={isDeleteModalOpen}
                         modalTitle={'Delete User'}
                         modalContent={'Are you sure you want to delete this user? '}
@@ -52,6 +52,7 @@ export const User = ({user}: PropsType) => {
                         handleCancel={onNoClickHandler}
                         handleOk={onYesClickHandler}
             />
+
         </tr>
     );
-};
+});

@@ -15,7 +15,7 @@ export const MailConfirmed = () => {
     const onSignInClick = () => {
         if(code){
             dispatch(sendConfirmationCode({code}));
-            navigate(`${PATH.AUTH}${PATH.LOGIN}`);
+            navigate(PATH.LOGIN);
         }
         return
     }

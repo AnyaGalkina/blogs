@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Title} from '../../../components/title/Title';
 import {BasicModal} from '../../../components/basicModal/BasicModal';
 import {useAppDispatch} from '../../../common/hooks';
@@ -22,59 +22,32 @@ export const UsersPage = () => {
 
     const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
 
-    // const columns = [
-    //     {
-    //         title: 'Username',
-    //         dataIndex: 'login',
-    //         key: 'login'
-    //     },
-    //     {
-    //         title: 'Email',
-    //         dataIndex: 'email',
-    //         key: 'email'
-    //     },
-    //     {
-    //         title: 'User Id',
-    //         dataIndex: 'id',
-    //         key: 'id'
-    //     },
-    //     {
-    //         title: 'Data added',
-    //         dataIndex: 'createdAt',
-    //         key: 'createdAt'
-    //     },
-    //     {
-    //         title: '',
-    //         dataIndex: '',
-    //         key: 'deleteBtn',
-    //         render: (_, record: { key: React.Key }) => <DeleteOutlined
-    //             onClick={() => onDeleteClickHandler(record.key)}/>,
-    //     },
-    // ];
-
     const onAddUserOpenModalClick = () => {
         setIsAddUserModalOpen(true);
     }
 
-    const onAddUserClickHandler = (params: CreateUserPeqType) => {
+    const onAddUserClickHandler =  useCallback((params: CreateUserPeqType) => {
         dispatch(createUser(params));
         setIsAddUserModalOpen(false);
-    }
+    }, []);
 
-    const onCancelClickHandler = () => {
+    const onCancelClickHandler = useCallback(() => {
         setIsAddUserModalOpen(false);
-    }
+    }, [])
 
     useEffect(() => {
         dispatch(getUsers());
-    }, []);
+    }, [isAddUserModalOpen]);
 
     return (
         <div>
+
             <Title title={'Users'}/>
+
             <Flex justify={'end'} margin={'32px 0px'}>
                 <AdminButton title={'Add user'} onClickHandler={onAddUserOpenModalClick}/>
             </Flex>
+
             <div>
                 <StyledTable>
                     <tr>
@@ -90,9 +63,11 @@ export const UsersPage = () => {
                         })}
                 </StyledTable>
             </div>
+
             <BasicModal isModalOpen={isAddUserModalOpen} modalTitle={'Add User'} handleCancel={onCancelClickHandler}>
                 <SignUpForm onSubmitHandler={onAddUserClickHandler} buttonTitle={'Add User'}/>
             </BasicModal>
+
         </div>
     );
 };

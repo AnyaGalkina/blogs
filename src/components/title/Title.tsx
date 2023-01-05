@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Divider} from '@mui/material';
 import {Breadcrumb} from 'antd';
 import {BreadcrumbItem} from './breadcrumb/BreadcrumbItem';
@@ -20,14 +20,15 @@ const StyledTitleBlock = styled.div`
   margin-bottom: 15px;
 `;
 
-export const Title = ({title, breadcrumbs}: PropsType) => {
+export const Title = memo(({title, breadcrumbs}: PropsType) => {
     return (
         <StyledTitleBlock>
             <Flex justify={'start'}>
                 <h2>{title}</h2>
 
                 <Breadcrumb style={{display: 'flex', justifyContent: 'start', alignItems: 'end'}}>
-                    {breadcrumbs ? breadcrumbs.map((breadcrumb, index) => {
+                    {breadcrumbs
+                        ? breadcrumbs.map((breadcrumb, index) => {
                             return <BreadcrumbItem key={index} breadcrumb={breadcrumb}/>
                         })
                         : ''
@@ -36,6 +37,7 @@ export const Title = ({title, breadcrumbs}: PropsType) => {
             </Flex>
 
             <Divider/>
+
         </StyledTitleBlock>
     );
-};
+});

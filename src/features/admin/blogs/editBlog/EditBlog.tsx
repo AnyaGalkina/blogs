@@ -44,12 +44,12 @@ export const EditBlog = () => {
                        breadcrumbs={[{breadcrumbItem: blog.name}, {breadcrumbItem: 'Edit'}]}
                 />
                 <div>
-                    <span onClick={onBackToBlogsClick}><ArrowLeftOutlined/> Back to blogs</span>
+                    <span onClick={onBackToBlogsClick}>
+                        <ArrowLeftOutlined/> Back to blogs
+                    </span>
                 </div>
                 <BlogForm onSubmitHandler={onSubmitHandler} buttonTitle={'Edit blog'}/>
             </div>
-            : <div>
-
-            </div>
+            : <div></div>
     );
 };

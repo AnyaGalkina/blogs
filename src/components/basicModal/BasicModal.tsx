@@ -1,5 +1,5 @@
 import {Button, Divider, Modal} from 'antd';
-import React, {ReactNode} from 'react';
+import React, {ReactNode, memo} from 'react';
 import {AdminButton} from '../buttons/adminButton/AdminButton';
 import style from './BasicModal.module.css';
 
@@ -15,7 +15,19 @@ type PropsType = {
 }
 
 
-export const BasicModal = ({handleCancel, okButtonTitle, cancelButtonTitle, modalContent, modalTitle, isModalOpen, handleOk, children}: PropsType) => {
+export const BasicModal = memo(({
+                                    handleCancel,
+                                    okButtonTitle,
+                                    cancelButtonTitle,
+                                    modalContent,
+                                    modalTitle,
+                                    isModalOpen,
+                                    handleOk,
+                                    children
+                                }: PropsType) => {
+
+    const showOkButton = handleOk && okButtonTitle;
+    const showCancelButton = handleCancel && cancelButtonTitle;
 
     return (
         <>
@@ -23,21 +35,23 @@ export const BasicModal = ({handleCancel, okButtonTitle, cancelButtonTitle, moda
                    onCancel={handleCancel}
                    footer={[
                        <>
-                           {handleOk && okButtonTitle &&
+                           {showOkButton &&
                                <AdminButton title={okButtonTitle} onClickHandler={handleOk}/>
                            }
                        </>,
-                     <>
-                         {handleCancel && cancelButtonTitle &&
-                             <Button onClick={handleCancel}
-                                     className={style.cancelButton}>{cancelButtonTitle}</Button>
-                         }
-                     </>
+                       <>
+                           {showCancelButton &&
+                               <Button onClick={handleCancel}
+                                       className={style.cancelButton}>{cancelButtonTitle}</Button>
+                           }
+                       </>
                    ]}
             >
                 <div>
                     <h3>{modalTitle}</h3>
+
                     <Divider/>
+
                     <p>{modalContent}</p>
                     {children}
                 </div>
@@ -45,4 +59,4 @@ export const BasicModal = ({handleCancel, okButtonTitle, cancelButtonTitle, moda
             </Modal>
         </>
     );
-};
+});
