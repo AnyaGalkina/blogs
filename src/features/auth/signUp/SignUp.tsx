@@ -33,7 +33,7 @@ export const SignUp = () => {
                     <div style={{padding: '30px'}}>
                         <h2>Sign Up</h2>
                         <SignUpForm onSubmitHandler={onSignUpClick} buttonTitle={'Sign Up'} isSignUp={email}/>
-                        <AuthLink path={`${PATH.AUTH}${PATH.LOGIN}`} text={'Already a member?'} linkTitle={'Sign In'}/>
+                        <AuthLink path={PATH.LOGIN} text={'Already a member?'} linkTitle={'Sign In'}/>
                     </div>
                 </div>
                 <div>

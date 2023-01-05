@@ -13,9 +13,13 @@ import {Comments} from './comments/Comments';
 
 export const PostPage = () => {
     const dispatch = useAppDispatch();
+
     const navigate = useNavigate();
+
     const {postId} = useParams();
+
     const post = useSelector(getPostByIdSelector);
+    const showPost = post && postId;
 
     const onBackToPostsClick = () => {
         navigate(PATH.POSTS);
@@ -29,23 +33,24 @@ export const PostPage = () => {
 
     return (
         <div>
-            {post && postId
+            {showPost
                 ? <>
-
                     <Title title={'Posts'} breadcrumbs={[{breadcrumbItem: post.blogName}]}/>
 
                     <button onClick={onBackToPostsClick}>Back to Posts</button>
 
-                    <Flex margin={"30px 0"} justify={"start"}>
+                    <Flex margin={'30px 0'} justify={'start'}>
                         <Image alt={'post'} width={'50px'} height={'50px'} radius={'40px'} margin={'0 20px 0 0'}/>
                         <h6>{post.blogName}</h6>
                     </Flex>
                     <div>
+                        {/*<Item />*/}
                         <h3>{post.title}</h3>
                         <span>{formattedDateWithHours(post.createdAt)}</span>
                         <Image alt={'post'}/>
                         <section>{post.content}</section>
                     </div>
+
                     <Comments postId={postId}/>
                 </>
                 : ''

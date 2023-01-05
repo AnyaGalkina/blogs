@@ -46,9 +46,10 @@ export const BlogPage = () => {
                         <h3>{blog.name}</h3>
                         <span>{formattedDate(blog.createdAt)}</span>
                         <span>Website: </span> <a href={blog.websiteUrl}/>
-                        {isShowMoreAsked || blog.description.length <= MAX_DESCRIPTION_LENGTH ? <p>{blog.description}</p> :
+                        {isShowMoreAsked || blog.description.length <= MAX_DESCRIPTION_LENGTH ?
+                            <p>{blog.description}</p> :
                             <div>
-                                <p>{blog.description.slice(1, MAX_DESCRIPTION_LENGTH-1)}</p>
+                                <p>{blog.description.slice(1, MAX_DESCRIPTION_LENGTH - 1)}</p>
                                 <Button onClick={() => {
                                     setIsShowMoreAsked(true)
                                 }}>Show more</Button>
