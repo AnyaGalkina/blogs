@@ -11,14 +11,7 @@ import {getBlogsSelector} from '../../../../common/selectors/selectors';
 import {StyledFormButton} from '../../../../components/buttons/formButton/FormButton';
 import {Input} from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import {
-    BoldOutlined, DownOutlined, EditFilled,
-    ItalicOutlined, LinkOutlined,
-    OrderedListOutlined, PictureOutlined, PlaySquareOutlined, QuestionCircleOutlined,
-    StrikethroughOutlined,
-    UnorderedListOutlined
-} from '@ant-design/icons';
-import {Flex} from '../../../../components/styled/Flex';
+import {EditPanel} from './editPanel/EditPanel';
 
 export type ValuesType = {
     title: string;
@@ -107,33 +100,7 @@ export const PostForm = ({buttonTitle, onSubmitHandler, isNewPost}: PropsType) =
                 }
                 <InputWithValidation touched={touched.content} errors={errors.content} text={'Description'}>
                     <>
-                        <Flex justify={'start'}>
-                            <div>
-                                <span>H1</span>
-                                <span>H2</span>
-                                <BoldOutlined/>
-                                <ItalicOutlined/>
-                                <StrikethroughOutlined/>
-                                {/*???*/}
-                                <UnorderedListOutlined/>
-                                <OrderedListOutlined/>
-                                <EditFilled/>
-                                <DownOutlined/>
-                            </div>
-                            <div>
-                                <LinkOutlined/>
-                                <PictureOutlined/>
-                                <PlaySquareOutlined/>
-                                {/*<FileImageOutlined/>*/}
-                                {/*<PlayCircleOutlined/>*/}
-                            </div>
-
-                            <div>
-                                {/*???*/}
-                                <QuestionCircleOutlined/>
-                            </div>
-
-                        </Flex>
+                        <EditPanel/>
                         <TextArea  {...getFieldProps('content')} name={'content'} rows={6}/>
                     </>
                 </InputWithValidation>
