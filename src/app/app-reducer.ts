@@ -1,12 +1,15 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 // @ts-ignore
 import {Nullable} from '../common/types/types';
+import {authAPI} from '../features/auth/auth-api';
+import {setLoggedIn, setUserId} from '../features/auth/auth-reducer';
 
 export type AppStatusType = 'idle' | 'loading';
 
 export const initialState = {
     appStatus: 'idle' as AppStatusType,
     appError: null as Nullable<string>,
+    isInitialized: false,
 };
 
 const slice = createSlice({
@@ -19,8 +22,28 @@ const slice = createSlice({
         setAppError(state, action: PayloadAction<{ appError: Nullable<string> }>) {
             state.appError = action.payload.appError;
         },
+        setInitialized(state, action: PayloadAction<{ isInitialized: boolean }>) {
+            state.isInitialized = action.payload.isInitialized;
+        }
     }
 });
 
 export const appReducer = slice.reducer;
-export const { setAppError, setAppStatus } = slice.actions;
+export const {setAppError, setAppStatus, setInitialized} = slice.actions;
+
+
+export const initializeApp = createAsyncThunk('/auth/me', async (_, thunkAPI) => {
+    const {dispatch} = thunkAPI;
+    dispatch(setAppStatus({appStatus: 'loading'}));
+    try {
+        const response = await authAPI.getMe();
+        dispatch(setUserId({userId: response.data.userId}));
+
+    } catch (error: any) {
+
+    } finally {
+        dispatch(setInitialized({isInitialized: true}));
+        dispatch(setAppStatus({appStatus: 'idle'}));
+    }
+
+})

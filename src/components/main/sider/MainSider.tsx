@@ -19,13 +19,11 @@ type LinkType = {
     icon: React.ReactElement;
 }
 
-
 const links: LinkType[] = [
     {path: PATH.BLOGS, title: 'Blogs', icon: <UnorderedListOutlined/>},
     {path: PATH.POSTS, title: 'Posts', icon: <GroupOutlined/>},
     {path: PATH.USERS, title: 'Users', icon: <UserOutlined/>},
 ]
-
 
 export const MainSider = () => {
     const isAdmin = useSelector(getIsAdmin);
@@ -39,7 +37,9 @@ export const MainSider = () => {
 
     return (
         <StyledSider theme={'light'}>
-            {linksToMap.map((link,index) => {
+
+            {linksToMap.map((link, index) => {
+
                 return (
                     <StyledSiderItem key={index}>
                         <NavLink to={link.path}

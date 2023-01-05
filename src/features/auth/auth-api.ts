@@ -1,23 +1,32 @@
-import {instance} from '../../common/api/config';
+import {instance, instanceWithCredentials} from '../../common/api/config';
 import {PATH} from '../../common/enums/path';
 import {CreateUserPeqType} from '../admin/admin-api';
+import {loadState} from '../../common/utils/local-storage';
 
 
 export const authAPI = {
     getMe() {
-        return instance.get<AuthMeResParamsType>(`${PATH.AUTH}/me`);
+
+        const accessToken = loadState();
+
+        return instance.get<AuthMeResParamsType>(PATH.ME, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
     },
     login(params: LoginReqType) {
-        return instance.post(`${PATH.AUTH}${PATH.LOGIN}`, params);
+        return instance.post<AccessTokenType>(PATH.LOGIN, params);
     },
     registration(params: CreateUserPeqType) {
-        return instance.post(`${PATH.AUTH}${PATH.SIGN_UP}`, params);
+        return instance.post(PATH.SIGN_UP, params);
     },
-    confirmEmail(params: {code: string}) {
-        return instance.post(`${PATH.AUTH}${PATH.SIGN_UP}-confirmation`, params);
-
+    confirmEmail(params: { code: string }) {
+        return instance.post(PATH.SIGN_UP_CONFIRMATION, params);
+    },
+    refreshToken() {
+        return instanceWithCredentials.post(PATH.REFRESH_TOKEN);
     }
-
 };
 
 export type AuthMeResParamsType = {
@@ -29,4 +38,8 @@ export type AuthMeResParamsType = {
 export type LoginReqType = {
     loginOrEmail: string;
     password: string;
+}
+
+export type AccessTokenType = {
+    accessToken: string;
 }

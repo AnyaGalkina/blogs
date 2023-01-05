@@ -29,7 +29,11 @@ export const getPageSizeCommentsSelector = (state: AppRootStateType): number => 
 
 export const getAppErrorSelector = (state: AppRootStateType): Nullable<string> => state.app.appError;
 export const getAppStateSelector = (state: AppRootStateType): AppStatusType => state.app.appStatus;
+export const getIsInitializedSelector = (state: AppRootStateType): boolean => state.app.isInitialized;
 
 
 export const getEmailSelector = (state: AppRootStateType): string => state.auth.email;
+export const getIsLoggedInSelector = (state: AppRootStateType): boolean => state.auth.isLoggedIn;
+export const getUserIdSelector = (state: AppRootStateType): string => state.auth.userId;
+export const getAccessTokenSelector = (state: AppRootStateType): string => state.auth.accessToken;
 
