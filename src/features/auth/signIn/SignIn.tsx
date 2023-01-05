@@ -1,18 +1,22 @@
 import React from 'react';
 import {Flex} from '../../../components/styled/Flex';
 import singIn from '../../../assets/images/signIn.png';
-import {SignUpForm} from '../signUp/SignUpForm';
 import {useAppDispatch} from '../../../common/hooks';
-import {CreateUserPeqType} from '../../admin/admin-api';
 import {PATH} from '../../../common/enums/path';
 import {AuthLink} from '../authLink/AuthLink';
+import {SignInForm} from './SignInForm';
+import {LoginReqType} from '../auth-api';
+import {login} from '../auth-reducer';
+import {useNavigate} from 'react-router-dom';
 
 export const SignIn = () => {
     const dispatch = useAppDispatch();
 
-    const onSignInClick = (params: CreateUserPeqType) => {
-        // console.log(params)
-        // dispatch();
+    const navigate = useNavigate();
+
+    const onSignInClick = (params: LoginReqType) => {
+        dispatch(login(params));
+        navigate(PATH.BLOGS);
     }
 
     return (
@@ -20,9 +24,9 @@ export const SignIn = () => {
             <div style={{width: 360, margin: '10% 0', backgroundColor: '#fff'}}>
                 <div style={{padding: '30px'}}>
                     <h2>Sign in</h2>
-                    <SignUpForm onSubmitHandler={onSignInClick} buttonTitle={'Sign In'}/>
+                    <SignInForm onSubmitHandler={onSignInClick} buttonTitle={'Sign In'}/>
                 </div>
-                <AuthLink path={`${PATH.AUTH}${PATH.SIGN_UP}`} text={'Don\'t have an account?'} linkTitle={'Sign Up'}/>
+                <AuthLink path={PATH.SIGN_UP} text={'Don\'t have an account?'} linkTitle={'Sign Up'}/>
             </div>
 
             <div>
