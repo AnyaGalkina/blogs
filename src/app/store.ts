@@ -7,6 +7,7 @@ import {adminReducer} from '../features/admin/admin-reducer';
 import {usersReducer} from '../features/admin/users/users-reducer';
 import {commentsReducer} from '../features/posts/post/comments/comments-reducer';
 import {authReducer} from '../features/auth/auth-reducer';
+import {saveState, loadState} from '../common/utils/local-storage';
 
 const rootReducer = combineReducers({
     blogsPage: blogsReducer,
@@ -15,13 +16,22 @@ const rootReducer = combineReducers({
     app: appReducer,
     admin: adminReducer,
     comments: commentsReducer,
-    auth: authReducer
+    auth: authReducer,
 });
 
 export const store = configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunk),
+    preloadedState: {
+        ...rootReducer,
+        // @ts-ignore
+        auth: { ...rootReducer.auth, accessToken: loadState() },
+    },
     devTools: true,
+});
+
+store.subscribe(() => {
+    saveState(store.getState().auth.accessToken);
 });
 
 export type AppRootStateType = ReturnType<typeof rootReducer>;
