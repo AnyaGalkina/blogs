@@ -1,6 +1,8 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {setAppStatus} from '../../app/app-reducer';
 import {adminAPI, NewBlogType, PostReqType} from './admin-api';
+import {getBlogs} from '../blogs/blogs-reducer';
+import {getPosts} from '../posts/posts-reducer';
 
 
 const initialState = {
@@ -20,6 +22,7 @@ export const addBlog = createAsyncThunk("admin/addBlog", async (params: NewBlogT
     dispatch(setAppStatus({appStatus: 'loading'}));
     try{
         const response = await adminAPI.addNewBlog(params);
+        dispatch(getBlogs());
     }catch (error: any) {
 
     }finally {
@@ -33,6 +36,7 @@ export const deleteBlog = createAsyncThunk('admin/deleteBlog', async (id: string
     dispatch(setAppStatus({appStatus: 'loading'}));
     try{
         const response = await adminAPI.deleteBlog(id);
+        dispatch(getBlogs());
     }catch (error: any) {
 
     }finally {
@@ -50,7 +54,9 @@ export const editBlog = createAsyncThunk('admin/editBlog', async ({blogId, param
     const {dispatch} = thunkAPI;
     dispatch(setAppStatus({appStatus: 'loading'}));
     try{
+        debugger
         const response = await adminAPI.updateBlog(blogId, params);
+        dispatch(getBlogs());
     }catch (error: any) {
 
     }finally {
@@ -67,6 +73,7 @@ export const addPost = createAsyncThunk("admin/addPost", async (params: PostReqT
     try{
         debugger
         const response = await adminAPI.addNewPost(params);
+        dispatch(getPosts());
     }catch (error: any) {
 
     }finally {
@@ -86,6 +93,7 @@ export const editPost = createAsyncThunk('admin/editPost', async ({postId, param
     dispatch(setAppStatus({appStatus: 'loading'}));
     try{
         const response = await adminAPI.updatePost(postId, params);
+        dispatch(getPosts());
     }catch (error: any) {
 
     }finally {
@@ -99,6 +107,7 @@ export const deletePost = createAsyncThunk( 'admin/deleteBlog', async (id: strin
     dispatch(setAppStatus({appStatus: 'loading'}));
     try{
         const response = await adminAPI.deletePost(id);
+        dispatch(getPosts());
     }catch (error: any) {
 
     }finally {

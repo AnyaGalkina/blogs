@@ -20,7 +20,7 @@ export const {setUsers} = slice.actions;
 export const usersReducer = slice.reducer;
 
 export const getUsers = createAsyncThunk('users/getusers', async (_: void, thunkAPI) => {
-    const {dispatch, getState} = thunkAPI;
+    const {dispatch} = thunkAPI;
 
     dispatch(setAppStatus({appStatus: 'loading'}));
 
@@ -36,13 +36,14 @@ export const getUsers = createAsyncThunk('users/getusers', async (_: void, thunk
     }
 });
 
-export const deleteUser = createAsyncThunk('users/deleteUser', async (id:string, thunkAPI) => {
+export const deleteUser = createAsyncThunk('users/deleteUser', async (id: string, thunkAPI) => {
     const {dispatch} = thunkAPI;
 
     dispatch(setAppStatus({appStatus: 'loading'}));
 
     try {
         const response = await adminAPI.deleteUser(id);
+        dispatch(getUsers());
     } catch (error: any) {
 
     } finally {
@@ -57,6 +58,7 @@ export const createUser = createAsyncThunk('users/deleteUser', async (params: Cr
 
     try {
         const response = await adminAPI.createUser(params);
+        dispatch(getUsers());
     } catch (error: any) {
 
     } finally {

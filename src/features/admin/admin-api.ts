@@ -1,4 +1,4 @@
-import {instance} from '../../common/api/config';
+import {instance, instanceAdmin} from '../../common/api/config';
 import {AxiosResponse} from 'axios';
 import {GetItemsResType, PostByIdResType} from '../posts/posts-api';
 import { PATH } from '../../common/enums/path';
@@ -6,23 +6,22 @@ import { PATH } from '../../common/enums/path';
 
 export const adminAPI = {
     addNewBlog(params: NewBlogType) {
-        return instance.post<NewBlogType, AxiosResponse<NewBlogResType>>(PATH.BLOGS, params);
+        return instanceAdmin.post<NewBlogType, AxiosResponse<NewBlogResType>>(PATH.BLOGS, params);
     },
     updateBlog(blogId: string, params: NewBlogType) {
-        return instance.put<NewBlogType, AxiosResponse>(`${PATH.BLOGS}/${blogId}`, params);
+        return instanceAdmin.put<NewBlogType, AxiosResponse>(`${PATH.BLOGS}/${blogId}`, params);
     },
     deleteBlog(blogId: string) {
-        return instance.delete<AxiosResponse>(`${PATH.BLOGS}/${blogId}`);
+        return instanceAdmin.delete<AxiosResponse>(`${PATH.BLOGS}/${blogId}`);
     },
     addNewPost(params: PostReqType) {
-        debugger
-        return instance.post<PostReqType, AxiosResponse<PostByIdResType>>( PATH.POSTS,params );
+        return instanceAdmin.post<PostReqType, AxiosResponse<PostByIdResType>>( PATH.POSTS,params );
     },
     updatePost(blogId: string, params: PostReqType) {
-        return instance.put<NewBlogType, AxiosResponse>(`${PATH.POSTS}/${blogId}`, params);
+        return instanceAdmin.put<NewBlogType, AxiosResponse>(`${PATH.POSTS}/${blogId}`, params);
     },
     deletePost(postId: string) {
-        return instance.delete<AxiosResponse>(`${PATH.POSTS}/${postId}`);
+        return instanceAdmin.delete<AxiosResponse>(`${PATH.POSTS}/${postId}`);
     },
     // getUsers(params) {
     //     return instance.get(PATH.USERS, params);
@@ -31,10 +30,10 @@ export const adminAPI = {
         return instance.get<GetItemsResType<GetUserResType>>(PATH.USERS);
     },
     createUser(params: CreateUserPeqType) {
-        return instance.post<CreateUserPeqType, AxiosResponse<GetUserResType>>(PATH.USERS, params);
+        return instanceAdmin.post<CreateUserPeqType, AxiosResponse<GetUserResType>>(PATH.USERS, params);
     },
     deleteUser(id: string) {
-        return instance.delete<{id: string}, AxiosResponse>(`${PATH.USERS}/${id}`);
+        return instanceAdmin.delete<{id: string}, AxiosResponse>(`${PATH.USERS}/${id}`);
 
     }
 
