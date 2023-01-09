@@ -1,5 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Button} from 'antd';
+import {useSelector} from 'react-redux';
+import {getIsLoggedInSelector} from '../../common/selectors/selectors';
+import {useAppDispatch} from '../../common/hooks';
+import {logout} from '../../features/auth/auth-reducer';
 
 export const StyledHeader = styled.div`
   background-color: #FCFBFB;
@@ -9,10 +14,23 @@ export const StyledHeader = styled.div`
 `
 
 export const MainHeader = () => {
+    const isLoggedIn = useSelector(getIsLoggedInSelector);
+    const dispatch = useAppDispatch();
+
+    const onLogoutClick  = () => {
+         dispatch(logout());
+    }
+
+
     return (
         <StyledHeader  theme={'light'}>
             <header>
-                <h1>Blogger Platform</h1>
+                <div style={{display: 'flex', justifyContent: "space-between"}}>
+                    <h1>Blogger Platform</h1>
+                    {isLoggedIn &&
+                        <Button onClick={onLogoutClick}>Logout</Button>
+                    }
+                </div>
             </header>
         </StyledHeader>
     );

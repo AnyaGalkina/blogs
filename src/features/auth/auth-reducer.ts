@@ -41,6 +41,9 @@ export const login = createAsyncThunk('auth/login', async (params: LoginReqType,
         const response = await authAPI.login(params);
         dispatch(setAccessToken({accessToken: response.data.accessToken,}));
         dispatch(setLoggedIn({isLoggedIn: true}));
+        // debugger
+        // const refreshToken = response.cookies.refreshToken
+        // console.log()
     } catch (error: any) {
         //The password or the email or
         // Username are incorrect. Try again,
@@ -92,3 +95,20 @@ export const refreshToken = createAsyncThunk('auth/refreshToken', async (_, thun
         dispatch(setAppStatus({appStatus: 'idle'}));
     }
 });
+
+export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+        const {dispatch} = thunkAPI;
+        dispatch(setAppStatus({appStatus: 'loading'}));
+        try {
+            const response = await authAPI.logout();
+            // const accessToken = response.data.accessToken;
+            // localStorage.setItem('accessToken', JSON.stringify(accessToken));
+            // dispatch(setAccessToken({accessToken}));
+        } catch (error: any) {
+
+        } finally {
+            dispatch(setAppStatus({appStatus: 'idle'}));
+        }
+
+    }
+)

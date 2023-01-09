@@ -11,4 +11,5 @@ export enum PATH {
     SIGN_UP = '/auth/registration',
     SIGN_UP_CONFIRMATION = '/auth/registration--confirmation/:code',
     REFRESH_TOKEN = '/auth/refresh-token',
+    LOGOUT = "/auth/logout",
 }
