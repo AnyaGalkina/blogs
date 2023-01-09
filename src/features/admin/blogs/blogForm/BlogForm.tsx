@@ -21,16 +21,19 @@ const re = /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]
 type PropsType = {
     onSubmitHandler: (values: NewBlogType) => void;
     buttonTitle: string;
+    initialName?: string;
+    initialWebsite?: string;
+    initialDescription?: string;
 }
 
 
-export const BlogForm = ({onSubmitHandler, buttonTitle}: PropsType) => {
+export const BlogForm = ({onSubmitHandler, buttonTitle, initialName = '', initialWebsite = '', initialDescription = ''  }: PropsType) => {
 
     const formik = useFormik({
         initialValues: {
-            name: '',
-            description: '',
-            websiteUrl: '',
+            name: initialName,
+            description: initialDescription,
+            websiteUrl: initialWebsite,
         },
         validate: (values) => {
             const errors: FormikErrors<NewBlogType> = {};

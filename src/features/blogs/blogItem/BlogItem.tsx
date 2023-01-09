@@ -7,6 +7,7 @@ import {BasicModal} from '../../../components/basicModal/BasicModal';
 import {useAppDispatch} from '../../../common/hooks';
 import {deleteBlog} from '../../admin/admin-reducer';
 import {Flex} from '../../../components/styled/Flex';
+import {getBlogs} from '../blogs-reducer';
 
 type PropsType = {
     title: string;
