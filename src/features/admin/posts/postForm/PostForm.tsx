@@ -26,18 +26,21 @@ const MAX_CONTENT_LENGTH = 1000;
 type PropsType = {
     buttonTitle: string;
     onSubmitHandler: (values: ValuesType) => void;
-    isNewPost: boolean
+    isNewPost: boolean;
+    initialTitle?: string;
+    initialContent?: string;
+
 }
 
-export const PostForm = ({buttonTitle, onSubmitHandler, isNewPost}: PropsType) => {
+export const PostForm = ({buttonTitle, onSubmitHandler, isNewPost, initialTitle = '', initialContent = '', }: PropsType) => {
     const dispatch = useAppDispatch();
     const blogs = useSelector(getBlogsSelector);
 
     const formik = useFormik({
         initialValues: {
-            title: '',
+            title: initialTitle,
             blogId: '',
-            content: '',
+            content: initialContent,
         },
         validate: (values) => {
             const errors: FormikErrors<ValuesType> = {};

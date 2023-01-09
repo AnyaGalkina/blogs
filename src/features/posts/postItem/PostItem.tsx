@@ -80,7 +80,11 @@ export const PostItem = ({blogId, title, id, createdAt, description}: PropsType)
 
             <BasicModal isModalOpen={isAddPostModalOpen} modalTitle={'Edit Post'} modalContent={''}
                         handleCancel={onCancelEditClickHandler}>
-                <EditPost blogId={blogId} onPublishClickHandler={onPublishClickHandler}/>
+                <EditPost blogId={blogId}
+                          onPublishClickHandler={onPublishClickHandler}
+                          title={title}
+                          description={description}
+                />
             </BasicModal>
 
         </>

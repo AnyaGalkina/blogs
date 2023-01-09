@@ -4,13 +4,15 @@ import {PostReqType} from '../../admin-api';
 
 type PropsType = {
     blogId: string;
+    description: string;
+    title: string;
     onPublishClickHandler: (newPost: PostReqType) => void
 }
 
 const MAX_SHORT_DESCRIPTION_LENGTH = 100;
 
 
-export const EditPost = memo(({blogId, onPublishClickHandler}: PropsType) => {
+export const EditPost = memo(({blogId, onPublishClickHandler, description, title}: PropsType) => {
 
     const onPublishClick = ({title, content}: ValuesType) => {
         const newPost: PostReqType = {
@@ -23,7 +25,12 @@ export const EditPost = memo(({blogId, onPublishClickHandler}: PropsType) => {
 
     return (
         <div>
-            <PostForm buttonTitle={'Publish'} onSubmitHandler={onPublishClick} isNewPost={false}/>
+            <PostForm buttonTitle={'Publish'}
+                      onSubmitHandler={onPublishClick}
+                      isNewPost={false}
+                      initialTitle={title}
+                      initialContent={description}
+            />
         </div>
     );
 });
