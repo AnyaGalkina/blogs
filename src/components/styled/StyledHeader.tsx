@@ -11,6 +11,7 @@ export const StyledHeader = styled.div`
   padding: 1% 4%;
   box-shadow: 0 5px 20px rgba(29, 33, 38, 0.03), 0 1px 2px rgba(29, 33, 38, 0.1);
   border-color: rgba(0, 0, 0, 0.12);
+  height: 80px;
 `
 
 export const MainHeader = () => {

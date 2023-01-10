@@ -11,6 +11,8 @@ import {getIsAdmin} from '../../../features/admin/admin-selectors';
 
 export const StyledSider = styled(Sider)`
   background-color: #FCFBFB;
+  min-height: 100vh;
+  width: 403px;
 `
 
 type LinkType = {

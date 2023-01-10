@@ -22,6 +22,8 @@ import {Search} from '../filters/search/Search';
 import {Flex} from '../../components/styled/Flex';
 import {ShowMoreButton} from '../../components/buttons/showMoreButton/ShowMoreButton';
 import {initializeApp} from '../../app/app-reducer';
+import {LinearProgress} from '@mui/material';
+import {GoBackButton} from '../../components/buttons/goBackButton/GoBackButton';
 
 
 export const Blogs = () => {

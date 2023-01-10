@@ -14,7 +14,6 @@ export const Main = () => {
     const dispatch = useAppDispatch();
 
     const appStatus = useSelector(getAppStateSelector);
-    const isLoggedIn = useSelector(getIsLoggedInSelector);
 
     const isLoading = appStatus === 'loading';
 
@@ -32,14 +31,11 @@ export const Main = () => {
     // }
 
     return (
-        <StyledLayout>
+        <>
             <MainHeader/>
-            <Layout>
-                {isLoggedIn && <MainSider/>}
-                {isLoading && <LinearProgress/>}
-                {/*<ErrorSnackbars />*/}
-                <StyledRoutes/>
-            </Layout>
-        </StyledLayout>
+            {isLoading && <LinearProgress/>}
+            {/*<ErrorSnackbars />*/}
+            <StyledRoutes/>
+        </>
     );
 };
