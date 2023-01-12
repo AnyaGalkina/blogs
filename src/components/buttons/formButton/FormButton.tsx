@@ -7,4 +7,5 @@ export const StyledFormButton = styled.button`
   border: 0;
   padding: 5px 10px;
   border-radius: 5px;
+  width: 100%
 `;

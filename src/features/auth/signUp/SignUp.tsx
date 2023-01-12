@@ -5,11 +5,11 @@ import singIn from '../../../assets/images/signIn.png';
 import {useAppDispatch} from '../../../common/hooks';
 import {PATH} from '../../../common/enums/path';
 import {AuthLink} from '../authLink/AuthLink';
-import {BasicModal} from '../../../components/basicModal/BasicModal';
 import {useSelector} from 'react-redux';
 import {getEmailSelector} from '../../../common/selectors/selectors';
 import {signUp} from '../auth-reducer';
 import {CreateUserPeqType} from '../../admin/admin-api';
+import {EmailConfirmationModal} from '../emailConfirmationModal/EmailConfirmationModal';
 
 export const SignUp = () => {
     const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ export const SignUp = () => {
         setIsModalOpen(true);
     }
 
-    const onOkClick = () => {
+    const  onOkClickHandler = () => {
         setIsModalOpen(false);
     };
 
@@ -41,10 +41,9 @@ export const SignUp = () => {
                 </div>
             </Flex>
             {email ?
-                <BasicModal isModalOpen={isModalOpen} modalTitle={'Email sent'}
-                            modalContent={`We have sent a link to confirm your email to ${email}`}
-                            handleCancel={onOkClick}
-                            cancelButtonTitle={'Ok'}
+                <EmailConfirmationModal email={email}
+                                        isModalOpen={isModalOpen}
+                                        onOkClick={onOkClickHandler}
                 />
                 : ''
             }
