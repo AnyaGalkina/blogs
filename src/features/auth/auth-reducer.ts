@@ -1,7 +1,8 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {authAPI, LoginReqType} from './auth-api';
+import {authAPI, LoginReqType, SetNewPasswordReqType} from './auth-api';
 import {setAppStatus} from '../../app/app-reducer';
 import {CreateUserPeqType} from '../admin/admin-api';
+import {RecoveryPasswordValuesType} from './passwordRecovery/recoveryPasswordForm/RecoveryPasswordForm';
 
 const initialState = {
     email: '',
@@ -16,6 +17,9 @@ const slice = createSlice({
         reducers: {
             setEmail(state, action: PayloadAction<{ email: string }>) {
                 state.email = action.payload.email;
+            },
+            setPassword(){
+
             },
             setUserId(state, action: PayloadAction<{ userId: string }>) {
                 state.userId = action.payload.userId;
@@ -112,3 +116,33 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
 
     }
 )
+
+export const passwordRecovery = createAsyncThunk('auth/passwordRecovery', async (params: RecoveryPasswordValuesType, thunkAPI) => {
+        const {dispatch} = thunkAPI;
+        dispatch(setAppStatus({appStatus: 'loading'}));
+        try {
+            dispatch(setEmail({email: params.email}));
+            const response = await authAPI.passwordRecovery(params);
+        } catch (error: any) {
+
+        } finally {
+            dispatch(setAppStatus({appStatus: 'idle'}));
+        }
+
+    }
+)
+export const setNewPassword = createAsyncThunk('auth/setNewPassword', async (params: SetNewPasswordReqType, thunkAPI) => {
+        const {dispatch} = thunkAPI;
+        dispatch(setAppStatus({appStatus: 'loading'}));
+        try {
+            const response = await authAPI.setNewPassword(params);
+            // dispatch(setEmail({password: params.newPassword}));
+        } catch (error: any) {
+
+        } finally {
+            dispatch(setAppStatus({appStatus: 'idle'}));
+        }
+
+    }
+)
+

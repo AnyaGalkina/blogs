@@ -4,7 +4,9 @@ import {InputWithValidation} from '../../admin/inputWithValidation/InputWithVali
 import {StyledFormButton} from '../../../components/buttons/formButton/FormButton';
 import {Input} from 'antd';
 import {LoginReqType} from '../auth-api';
-
+import {Flex} from '../../../components/styled/Flex';
+import {useNavigate} from 'react-router-dom';
+import {PATH} from '../../../common/enums/path';
 
 const MAX_PASSWORD_LENGTH = 20;
 const MIN_PASSWORD_LENGTH = 6;
@@ -12,11 +14,15 @@ const MIN_PASSWORD_LENGTH = 6;
 type PropsType = {
     onSubmitHandler: (values: LoginReqType) => void;
     buttonTitle: string;
-    // isSignUp?: string;
 }
 
 
 export const SignInForm = ({onSubmitHandler, buttonTitle}: PropsType) => {
+
+    const navigate = useNavigate();
+    const onForgotPAssWordClick = () => {
+        navigate(PATH.FORGOT_PASSWORD);
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -61,6 +67,11 @@ export const SignInForm = ({onSubmitHandler, buttonTitle}: PropsType) => {
                 <InputWithValidation touched={touched.password} errors={errors.password} text={'Password'}>
                     <Input.Password {...getFieldProps('password')}/>
                 </InputWithValidation>
+
+                <Flex justify={'end'}>
+                    <span style={{color: 'gray', cursor: 'default'}}
+                          onClick={onForgotPAssWordClick}>Forgot Password</span>
+                </Flex>
 
                 <div style={{marginTop: '10px'}}>
                     <StyledFormButton type={'submit'}>{buttonTitle}</StyledFormButton>

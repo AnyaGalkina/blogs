@@ -13,11 +13,16 @@ import {SignIn} from '../../../features/auth/signIn/SignIn';
 import {SignUp} from '../../../features/auth/signUp/SignUp';
 import {MailConfirmed} from '../../../features/auth/signUp/mailConfirmed/MailConfirmed';
 import {ComponentWithSideBar} from '../../../common/hoc/ComponentWithSideBar';
+import {PasswordRecovery} from '../../../features/auth/passwordRecovery/PasswordRecovery';
+import {CreateNewPassword} from '../../../features/auth/createNewPassword/CreateNewPassword';
 
 const routesWithoutLinearBar = [
     {path: PATH.LOGIN, component: <SignIn/>},
     {path: PATH.SIGN_UP, component: <SignUp/>},
     {path: PATH.SIGN_UP_CONFIRMATION, component: <MailConfirmed/>},
+    {path: PATH.FORGOT_PASSWORD, component: <PasswordRecovery/>},
+    {path: `${PATH.SET_NEW_PASSWORD}`, component: <CreateNewPassword/>},
+
 ]
 
 const routes = [

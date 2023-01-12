@@ -2,6 +2,7 @@ import {instance, instanceWithCredentials} from '../../common/api/config';
 import {PATH} from '../../common/enums/path';
 import {CreateUserPeqType} from '../admin/admin-api';
 import {loadState} from '../../common/utils/local-storage';
+import {RecoveryPasswordValuesType} from './passwordRecovery/recoveryPasswordForm/RecoveryPasswordForm';
 
 
 export const authAPI = {
@@ -30,8 +31,16 @@ export const authAPI = {
     logout() {
         return instanceWithCredentials.post(PATH.LOGOUT)
         // return instance.post(PATH.LOGOUT)
+    },
+    passwordRecovery(params: RecoveryPasswordValuesType) {
+        return instance.post(PATH.FORGOT_PASSWORD, params);
+    },
+    setNewPassword(params: SetNewPasswordReqType) {
+        return instance.post(PATH.SET_NEW_PASSWORD, params);
     }
 };
+
+export type SetNewPasswordReqType = { newPassword: string, recoveryCode: string }
 
 export type AuthMeResParamsType = {
     email: string;

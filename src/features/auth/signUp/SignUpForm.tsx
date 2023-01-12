@@ -97,9 +97,7 @@ export const SignUpForm = ({onSubmitHandler, buttonTitle, isSignUp}: PropsType) 
                             </StyledGreyText>
                             : ''
                         }
-                        <div style={{marginTop: '10px'}}>
-                            <StyledFormButton type={'submit'}>{buttonTitle}</StyledFormButton>
-                        </div>
+                        <StyledFormButton type={'submit'}>{buttonTitle}</StyledFormButton>
                     </>
                 </Flex>
             </form>

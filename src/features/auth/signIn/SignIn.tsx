@@ -22,7 +22,7 @@ export const SignIn = () => {
     return (
         <Flex justify={'space-around'}>
             <div style={{width: 360, margin: '10% 0', backgroundColor: '#fff'}}>
-                <div style={{padding: '30px'}}>
+                <div style={{padding: '30px 30px 0'}}>
                     <h2>Sign in</h2>
                     <SignInForm onSubmitHandler={onSignInClick} buttonTitle={'Sign In'}/>
                 </div>
