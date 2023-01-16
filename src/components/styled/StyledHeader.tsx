@@ -18,6 +18,7 @@ export const MainHeader = () => {
     const isLoggedIn = useSelector(getIsLoggedInSelector);
     const dispatch = useAppDispatch();
 
+    console.log(isLoggedIn);
     const onLogoutClick  = () => {
          dispatch(logout());
     }

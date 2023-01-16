@@ -57,7 +57,6 @@ export type GetBlogsParamsType = {
 export const getBlogs = createAsyncThunk('blogs/getBlogs', async (_: void, thunkAPI) => {
     const {dispatch, getState} = thunkAPI;
     dispatch(setAppStatus({appStatus: 'loading'}));
-    debugger
     const state = getState() as AppRootStateType;
     const {sortDirection, pageSize, page, sortBy, searchNameTerm} = state.blogsPage;
 

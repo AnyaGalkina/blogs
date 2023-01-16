@@ -34,7 +34,6 @@ const routes = [
     {path: `${PATH.POSTS}/:postId`, component: <PostPage/>},
     {path: PATH.USERS, component: <UsersPage/>},
     {path: PATH.PAGE_NOT_FOUND, component: <PageNotFound/>},
-    {path: PATH.PAGE_NOT_FOUND, component: <PageNotFound/>},
 ];
 
 
