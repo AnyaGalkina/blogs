@@ -29,7 +29,9 @@ export const authAPI = {
         return instanceWithCredentials.post(PATH.REFRESH_TOKEN);
     },
     logout() {
-        return instanceWithCredentials.post(PATH.LOGOUT)
+        return instanceWithCredentials.post(PATH.LOGOUT,
+            // {crossDomain: true}
+        )
         // return instance.post(PATH.LOGOUT)
     },
     passwordRecovery(params: RecoveryPasswordValuesType) {
