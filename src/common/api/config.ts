@@ -7,18 +7,13 @@ const ADMIN_PASSWORD = 'qwerty'
 
 export const instance = axios.create({
         baseURL: BASE_URL,
-
     }
 );
 
-// const settings = {
-// withCredentials: true,
-// }
 
 export const instanceWithCredentials = axios.create({
         baseURL: BASE_URL,
         withCredentials: true,
-        // ...settings
         // crossDomain: true,
         // headers: {
         //     crossDomain: true,
@@ -34,10 +29,3 @@ export const instanceAdmin = axios.create({
         }
     }
 );
-
-// export const instancePrivate = axios.create({
-//         baseURL: BASE_URL,
-//         headers: {'Content-type': 'application/json'},
-//         withCredentials: true,
-//     }
-// );
