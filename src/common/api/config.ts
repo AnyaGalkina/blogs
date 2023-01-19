@@ -14,7 +14,7 @@ export const instance = axios.create({
 
 export const instanceWithCredentials = axios.create({
         baseURL: BASE_URL,
-        // withCredentials: true,
+        withCredentials: true,
         // crossDomain: true,
         // headers: {
         //     crossDomain: true,
