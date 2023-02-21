@@ -1,3 +1,5 @@
+import {PersonalSettings} from '../../features/personalSettings/PersonalSettings';
+
 export enum PATH {
     BLOGS = '/blogs',
     ADD_BLOG = '/add-blog',
@@ -14,4 +16,5 @@ export enum PATH {
     LOGOUT = '/auth/logout',
     FORGOT_PASSWORD = '/auth/password-recovery',
     SET_NEW_PASSWORD = '/auth/new-password',
+    PERSONAL_SETTINGS = '/security/devices'
 }

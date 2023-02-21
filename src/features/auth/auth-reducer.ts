@@ -7,6 +7,7 @@ import {RecoveryPasswordValuesType} from './passwordRecovery/recoveryPasswordFor
 const initialState = {
     email: '',
     userId: '',
+    userName: '',
     isLoggedIn: false,
     accessToken: '',
 }
@@ -18,7 +19,7 @@ const slice = createSlice({
             setEmail(state, action: PayloadAction<{ email: string }>) {
                 state.email = action.payload.email;
             },
-            setPassword(){
+            setPassword() {
 
             },
             setUserId(state, action: PayloadAction<{ userId: string }>) {
@@ -30,13 +31,17 @@ const slice = createSlice({
             setAccessToken(state, action: PayloadAction<{ accessToken: string }>) {
                 state.accessToken = action.payload.accessToken;
             },
+            setUserName(state, action: PayloadAction<{ userName: string }>) {
+                debugger
+                state.userName = action.payload.userName;
+            },
         }
     }
 );
 
 
 export const authReducer = slice.reducer;
-export const {setEmail, setAccessToken, setUserId, setLoggedIn} = slice.actions;
+export const {setEmail, setAccessToken, setUserId, setLoggedIn, setUserName} = slice.actions;
 
 export const login = createAsyncThunk('auth/login', async (params: LoginReqType, thunkAPI) => {
     const {dispatch} = thunkAPI;
@@ -44,10 +49,8 @@ export const login = createAsyncThunk('auth/login', async (params: LoginReqType,
     try {
         const response = await authAPI.login(params);
         dispatch(setAccessToken({accessToken: response.data.accessToken,}));
-        dispatch(setLoggedIn({isLoggedIn: true}));
         // debugger
-        // const refreshToken = response.cookies.refreshToken
-        // console.log()
+        dispatch(setLoggedIn({isLoggedIn: true}));
     } catch (error: any) {
         //The password or the email or
         // Username are incorrect. Try again,
@@ -101,6 +104,7 @@ export const refreshToken = createAsyncThunk('auth/refreshToken', async (_, thun
 });
 
 export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+        debugger
         const {dispatch} = thunkAPI;
         dispatch(setAppStatus({appStatus: 'loading'}));
         try {

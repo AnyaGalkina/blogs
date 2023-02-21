@@ -15,6 +15,7 @@ import {MailConfirmed} from '../../../features/auth/signUp/mailConfirmed/MailCon
 import {ComponentWithSideBar} from '../../../common/hoc/ComponentWithSideBar';
 import {PasswordRecovery} from '../../../features/auth/passwordRecovery/PasswordRecovery';
 import {CreateNewPassword} from '../../../features/auth/createNewPassword/CreateNewPassword';
+import {PersonalSettings} from '../../../features/personalSettings/PersonalSettings';
 
 const routesWithoutLinearBar = [
     {path: PATH.LOGIN, component: <SignIn/>},
@@ -34,6 +35,7 @@ const routes = [
     {path: `${PATH.POSTS}/:postId`, component: <PostPage/>},
     {path: PATH.USERS, component: <UsersPage/>},
     {path: PATH.PAGE_NOT_FOUND, component: <PageNotFound/>},
+    {path: PATH.PERSONAL_SETTINGS, component: <PersonalSettings/>},
 ];
 
 

@@ -22,8 +22,6 @@ import {Search} from '../filters/search/Search';
 import {Flex} from '../../components/styled/Flex';
 import {ShowMoreButton} from '../../components/buttons/showMoreButton/ShowMoreButton';
 import {initializeApp} from '../../app/app-reducer';
-import {LinearProgress} from '@mui/material';
-import {GoBackButton} from '../../components/buttons/goBackButton/GoBackButton';
 
 
 export const Blogs = () => {
@@ -38,8 +36,8 @@ export const Blogs = () => {
     const isAdmin = useSelector(getIsAdmin);
     const pageSize = useSelector(getBlogsPageSizeSelector);
     const page = useSelector(getBlogsPageSelector);
-    const isInitialized = useSelector(getIsInitializedSelector);
-    const accessToken = useSelector(getAccessTokenSelector);
+    // const isInitialized = useSelector(getIsInitializedSelector);
+    // const accessToken = useSelector(getAccessTokenSelector);
 
 
     const onAddPostClick = useCallback(() => {
@@ -54,23 +52,23 @@ export const Blogs = () => {
         dispatch(getBlogs());
     }, [sortBy, sortDirection, searchNameTerm, pageSize, page]);
 
-    useEffect(() => {
-        dispatch(initializeApp());
-    }, [accessToken]);
+    // useEffect(() => {
+    //     dispatch(initializeApp());
+    // }, [accessToken]);
 
-    if (!isInitialized) {
-        return (
-            <div style={{position: "fixed", top: "30%", textAlign: "center", width: "100%"}}>
-                {/*<CircularProgress color="primary"/>*/}
-                <div>LOADING...</div>
-            </div>
-        )
-    }
+    // if (!isInitialized) {
+    //     return (
+    //         <div style={{position: "fixed", top: "30%", textAlign: "center", width: "100%"}}>
+    //             {/*<CircularProgress color="primary"/>*/}
+    //             <div>LOADING...</div>
+    //         </div>
+    //     )
+    // }
 
     return (
         <div>
             <Title title={'Blogs'}/>
-            {isInitialized}
+            {/*{isInitialized}*/}
             <div>
                 {isAdmin
                     ?

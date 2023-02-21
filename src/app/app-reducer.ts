@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 // @ts-ignore
 import {Nullable} from '../common/types/types';
 import {authAPI} from '../features/auth/auth-api';
-import {setLoggedIn, setUserId} from '../features/auth/auth-reducer';
+import {setLoggedIn, setUserId, setUserName} from '../features/auth/auth-reducer';
 
 export type AppStatusType = 'idle' | 'loading';
 
@@ -37,7 +37,9 @@ export const initializeApp = createAsyncThunk('/auth/me', async (_, thunkAPI) =>
     dispatch(setAppStatus({appStatus: 'loading'}));
     try {
         const response = await authAPI.getMe();
+        dispatch(setLoggedIn({isLoggedIn: true}));
         dispatch(setUserId({userId: response.data.userId}));
+        dispatch(setUserName({userName: response.data.login}));
 
     } catch (error: any) {
 
