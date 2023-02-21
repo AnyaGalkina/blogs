@@ -25,7 +25,7 @@ export const AddCommentForm = ({onSubmitHandler}: PropsType) => {
             } else if (content.length > MAX_LENGTH) {
                 errors.content = `Max length is ${MAX_LENGTH} symbols`
             } else if (content.length < MIN_LENGTH) {
-                errors.content = `Max length is ${MIN_LENGTH} symbols`
+                errors.content = `Minimum length is ${MIN_LENGTH} symbols`
             }
             return errors;
         },

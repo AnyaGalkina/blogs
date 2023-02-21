@@ -37,7 +37,7 @@ export const Comments = memo(({postId}: PropsType) => {
 
     useEffect(() => {
         dispatch(getPostComments(postId));
-    }, [pageSize]);
+    }, [pageSize, totalCount]);
 
     return (
         <div>
@@ -51,7 +51,7 @@ export const Comments = memo(({postId}: PropsType) => {
             <div>
                 {showComments &&
                     comments.map(comment => {
-                        return <Comment key={comment.id} comment={comment}/>
+                        return <Comment key={comment.id} comment={comment} postId={postId}/>
                     })
                 }
             </div>

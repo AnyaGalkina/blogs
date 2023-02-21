@@ -29,8 +29,9 @@ const slice = createSlice({
         // setPostsPageSize(state, action: PayloadAction) {
         //     state.pageSize = state.pageSize + defaultPortionSize;
         // },
-        setComments(state, action: PayloadAction<{ comments: Array<CommentType> }>) {
+        setComments(state, action: PayloadAction<{ comments: Array<CommentType>; totalCount: number }>) {
             state.comments = action.payload.comments
+            state.totalCount = action.payload.totalCount
         },
         setCommentsPageSize(state, action: PayloadAction) {
             state.pageSize = state.pageSize + defaultPortionSize;
@@ -41,13 +42,13 @@ const slice = createSlice({
 export const commentsReducer = slice.reducer;
 export const {setComments, setCommentsPageSize} = slice.actions;
 
-export const addPostComment = createAsyncThunk('comments/addPostComment', async (params: {postId: string, comment: string }, thunkAPI) => {
+export const addPostComment = createAsyncThunk('comments/addPostComment', async (params: { postId: string, comment: string }, thunkAPI) => {
     const {dispatch} = thunkAPI;
+
     dispatch(setAppStatus({appStatus: 'loading'}));
-    debugger
     try {
         const response = await postsAPI.addPostComment(params);
-        // dispatch(setComments({comment: response.data}));
+        dispatch(getPostComments(params.postId));
     } catch (error: any) {
 
     } finally {
@@ -57,13 +58,14 @@ export const addPostComment = createAsyncThunk('comments/addPostComment', async 
 });
 
 
-export const deleteComment = createAsyncThunk('comments/deletePostComment', async (commentId: string, thunkAPI) => {
+export const deleteComment = createAsyncThunk('comments/deletePostComment', async (params: {commentId: string, postId:string}, thunkAPI) => {
     const {dispatch} = thunkAPI;
+    const {commentId, postId} = params;
+
     dispatch(setAppStatus({appStatus: 'loading'}));
-    debugger
     try {
         const response = await postsAPI.deleteComment(commentId);
-        // dispatch(setComments({comment: response.data}));
+        dispatch(getPostComments(postId));
     } catch (error: any) {
 
     } finally {
@@ -72,13 +74,14 @@ export const deleteComment = createAsyncThunk('comments/deletePostComment', asyn
 
 });
 
-export const updateComment = createAsyncThunk('comments/updatePostComment', async (params: { commentId: string, comment: string }, thunkAPI) => {
+export const updateComment = createAsyncThunk('comments/updatePostComment', async (params: {postId: string, commentId: string, comment: string }, thunkAPI) => {
     const {dispatch} = thunkAPI;
+    const {postId, comment, commentId} = params;
+
     dispatch(setAppStatus({appStatus: 'loading'}));
-    debugger
     try {
-        const response = await postsAPI.updatePostComment(params);
-        // dispatch(setComments({comment: response.data}));
+        const response = await postsAPI.updatePostComment({comment, commentId});
+        dispatch(getPostComments(postId));
     } catch (error: any) {
 
     } finally {
@@ -107,12 +110,10 @@ export const getPostComments = createAsyncThunk('comments/getPostComments', asyn
         params.pageSize = pageSize;
     }
 
-    debugger
-
     dispatch(setAppStatus({appStatus: 'loading'}));
     try {
         const response = await postsAPI.getPostComments(postId, params);
-        dispatch(setComments({comments: response.data}));
+        dispatch(setComments({comments: response.data.items, totalCount: response.data.totalCount}));
     } catch (error: any) {
 
     } finally {

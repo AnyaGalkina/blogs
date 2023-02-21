@@ -1,10 +1,10 @@
-import axios from 'axios';
+// import axios from 'axios';
 import {instance} from '../../common/api/config';
 import {PATH} from '../../common/enums/path';
 import {GetPostsParamsType} from './posts-reducer';
 import {AxiosResponse} from 'axios';
 import {loadState} from '../../common/utils/local-storage';
-import {AuthMeResParamsType} from '../auth/auth-api';
+// import {AuthMeResParamsType} from '../auth/auth-api';
 
 export const postsAPI = {
     getPosts(params: GetPostsParamsType) {
@@ -14,13 +14,13 @@ export const postsAPI = {
         return instance.get<PostByIdResType>(`${PATH.POSTS}/${postId}`);
     },
     getPostComments(postId: string, params: GetPostsParamsType) {
-        return instance.get<CommentType[]>(`${PATH.POSTS}/${postId}${PATH.COMMENTS}`, {params});
+        return instance.get<GetItemsResType<CommentType>>(`${PATH.POSTS}/${postId}${PATH.COMMENTS}`, {params});
     },
     addPostComment(params: { postId: string, comment: string }) {
         const {postId, comment} = params;
         const accessToken = loadState();
 
-        return axios.post<CommentType>(`${PATH.POSTS}/${postId}${PATH.COMMENTS}`, {comment}, {
+        return instance.post<CommentType>(`${PATH.POSTS}/${postId}${PATH.COMMENTS}`, {content: comment}, {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
@@ -28,10 +28,23 @@ export const postsAPI = {
     },
     updatePostComment(params: { commentId: string, comment: string }) {
         const {commentId, comment} = params;
+        const accessToken = loadState();
+
+        return instance.put<{ id: string }, AxiosResponse>(`${PATH.COMMENTS}/${commentId}`,  {content: comment}, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
         // return instanceBearer.put<{ id: string }, AxiosResponse>(`${PATH.COMMENTS}/${commentId}`, {comment});
     },
     deleteComment(commentId: string) {
-        // return instanceBearer.delete<{ id: string }, AxiosResponse>(`${PATH.COMMENTS}/${commentId}`);
+        const accessToken = loadState();
+
+        return instance.delete<{ id: string }, AxiosResponse>(`${PATH.COMMENTS}/${commentId}`,  {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
     },
 };
 
