@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://app-back.vercel.app';
+// const BASE_URL = 'https://app-back.vercel.app';
 // const BASE_URL = 'https://app-back-lqejgkdjr-alexsandr3.vercel.app';
 // const BASE_URL = 'https://app-back-qphk1sajo-alexsandr3.vercel.app';
 
 
 //try this
-// const BASE_URL = 'https://app-back-j3qmd7c4y-alexsandr3.vercel.app';
+const BASE_URL = 'https://app-back-j3qmd7c4y-alexsandr3.vercel.app';
 const ADMIN_LOGIN = 'admin'
 const ADMIN_PASSWORD = 'qwerty'
 
