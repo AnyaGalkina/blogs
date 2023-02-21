@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Button} from 'antd';
+import {Dropdown, MenuProps} from 'antd';
 import {useSelector} from 'react-redux';
-import {getIsLoggedInSelector} from '../../common/selectors/selectors';
+import {getUserNameSelector} from '../../common/selectors/selectors';
 import {useAppDispatch} from '../../common/hooks';
 import {logout} from '../../features/auth/auth-reducer';
+import {LogoutOutlined, SettingOutlined} from '@ant-design/icons';
+import {useNavigate} from 'react-router-dom';
+import {PATH} from '../../common/enums/path';
 
 export const StyledHeader = styled.div`
   background-color: #FCFBFB;
@@ -15,22 +18,49 @@ export const StyledHeader = styled.div`
 `
 
 export const MainHeader = () => {
-    const isLoggedIn = useSelector(getIsLoggedInSelector);
+    const userName = useSelector(getUserNameSelector);
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    console.log(isLoggedIn);
-    const onLogoutClick  = () => {
-         dispatch(logout());
+    const onSettingsClick = () => {
+        navigate(PATH.PERSONAL_SETTINGS);
     }
+
+    const onLogoutClick = () => {
+        dispatch(logout());
+    }
+
+    const items: MenuProps['items'] = [
+        {
+            key: '1',
+            label: (
+                <div onClick={onSettingsClick}>
+                    <SettingOutlined/> Personal Settings
+                </div>
+            ),
+        },
+        {
+            key: '2',
+            label: (
+                <span onClick={onLogoutClick}>
+                    <LogoutOutlined/> Logout
+                </span>
+            ),
+        },
+    ];
 
 
     return (
-        <StyledHeader  theme={'light'}>
+        <StyledHeader theme={'light'}>
             <header>
-                <div style={{display: 'flex', justifyContent: "space-between"}}>
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
                     <h1>Blogger Platform</h1>
-                    {isLoggedIn &&
-                        <Button onClick={onLogoutClick}>Logout</Button>
+                    {userName &&
+                        <div style={{cursor: 'pointer'}}>
+                            <Dropdown menu={{items}} placement="bottomRight">
+                                <span>{userName}</span>
+                            </Dropdown>
+                        </div>
                     }
                 </div>
             </header>

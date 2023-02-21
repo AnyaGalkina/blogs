@@ -34,6 +34,7 @@ export const getIsInitializedSelector = (state: AppRootStateType): boolean => st
 
 export const getEmailSelector = (state: AppRootStateType): string => state.auth.email;
 export const getIsLoggedInSelector = (state: AppRootStateType): boolean => state.auth.isLoggedIn;
+export const getUserNameSelector = (state: AppRootStateType): string => state.auth.userName;
 export const getUserIdSelector = (state: AppRootStateType): string => state.auth.userId;
 export const getAccessTokenSelector = (state: AppRootStateType): string => state.auth.accessToken;
 

@@ -8,6 +8,7 @@ import {usersReducer} from '../features/admin/users/users-reducer';
 import {commentsReducer} from '../features/posts/post/comments/comments-reducer';
 import {authReducer} from '../features/auth/auth-reducer';
 import {saveState, loadState} from '../common/utils/local-storage';
+import {personalSettingsReducer} from '../features/personalSettings/personalSettings-reducer';
 
 const rootReducer = combineReducers({
     blogsPage: blogsReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     admin: adminReducer,
     comments: commentsReducer,
     auth: authReducer,
+    personalSettings: personalSettingsReducer,
 });
 
 export const store = configureStore({
