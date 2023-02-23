@@ -27,6 +27,7 @@ export const MainHeader = () => {
     }
 
     const onLogoutClick = () => {
+        debugger
         dispatch(logout());
     }
 

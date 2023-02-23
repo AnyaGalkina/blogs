@@ -29,6 +29,7 @@ export const authAPI = {
         return instanceWithCredentials.post(PATH.REFRESH_TOKEN);
     },
     logout() {
+        debugger
         return instanceWithCredentials.post(PATH.LOGOUT)
         // return instance.post(PATH.LOGOUT)
     },
